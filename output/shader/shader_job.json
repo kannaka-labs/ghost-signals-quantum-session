@@ -1,0 +1,13 @@
+{
+ "engine": "entanglement-shader-v1",
+ "job_id": "b7f8ece2-f8e3-431e-9249-f657e8a57732",
+ "params": {
+  "reflectance": 0.2,
+  "absorption": 0.95,
+  "layers": 3,
+  "incoming_rays": 8,
+  "interaction": 1,
+  "resolution": 60,
+  "style": "peaked"
+ }
+}

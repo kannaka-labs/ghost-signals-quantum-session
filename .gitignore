@@ -11,3 +11,6 @@ output/**/peek_*.png
 output/**/contact.png
 output/**/dbg_*.png
 output/explainer/explainer_audio.wav
+output/shader/test_frame.png
+output/shader/turntable_audio.wav
+output/shader/entanglement_shader.zip

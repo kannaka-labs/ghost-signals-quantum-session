@@ -2,8 +2,8 @@
 
 Repo for every entry: https://github.com/kannaka-labs/ghost-signals-quantum-session
 Team: Nick Flach (kannaka-labs), with 0xSCADA-QE, the constellation's QE agent, building.
-Engines used across the project (8): comet-qrng-v1, qrc-midi-v1, blur-midi-v1, graph-v1,
-retrocausal-echo-v1, qrc-audio-v1, blur-v1, telablur-v1.
+Engines used across the project (9): comet-qrng-v1, qrc-midi-v1, blur-midi-v1, graph-v1,
+retrocausal-echo-v1, qrc-audio-v1, blur-v1, telablur-v1, entanglement-shader-v1.
 
 Base URL for the file links below: `https://github.com/kannaka-labs/ghost-signals-quantum-session/blob/main/`
 
@@ -53,7 +53,7 @@ bytes.
 
 ## #6 (Daisy Chain)
 
-**Engines: 8**, each doing a job nothing else in the chain does:
+**Engines: 9**, each doing a job nothing else in the chain does:
 - comet-qrng-v1: the seed;
 - qrc-midi-v1: three lead takes;
 - blur-midi-v1: the ghost counter-voice;
@@ -61,7 +61,8 @@ bytes.
 - qrc-audio-v1: the vocal chops;
 - retrocausal-echo-v1: the echo, one impulse response re-rendered across stems;
 - blur-v1: the cover and the drop pulses;
-- telablur-v1: the ring-to-ring morphs.
+- telablur-v1: the ring-to-ring morphs;
+- entanglement-shader-v1: the 3D material.
 
 Output assets chain directly into the next engine, without re-uploading.
 
@@ -81,6 +82,30 @@ strengths on the beat.
 (`output/art/mask_outer.png`) covering rings 3–5 only. The source is our render of the Heesch leader.
 The quantum blur scatters only the unsettled frontier into interference echoes, while the rings that
 are proven stay sharp. The three cells the fifth ring could not cover glow red.
+
+## #8 (Make a web app): The Receipt Machine
+
+**Link:** https://kannaka-labs.github.io/ghost-signals-quantum-session/
+
+A web app that calls the Atlas API (comet-qrng-v1) and prints certified quantum randomness as a
+receipt: the Bell-test gauge, the entropy delivered, the charge for the lost shot order, the budget,
+and a CERTIFIED / REFUSED stamp with the bytes and dice.
+- **Predict** mode is an interactive slider showing where a register becomes certifiable (12.2
+  qubits on ibm_fez).
+- **Replay** mode shows our three real runs.
+- **Live** mode prints a fresh receipt with your own Atlas key, through a whitelisting proxy
+  (`docs/proxy`, as a Cloudflare Worker or `node docs/proxy/server.mjs`). The proxy is needed because
+  the Atlas API only answers browser calls from Moth's own site.
+
+## #3 (Three dimensions)
+
+**Video:** `output/shader/heesch_leader_entanglement_shader.mp4` (20 s turntable, 1280×720)
+
+The Heesch leader is extruded into a 3D ziggurat of hex prisms: each ring is one step lower, and the
+three cells no copy could cover are pits. Every face is shaded with the entanglement-shader-v1
+reflectance LUT (job b7f8ece2; `layers 3, reflectance 0.2, absorption 0.95, style peaked`), sampled at
+that face's own viewing angle by a port of the engine's GLSL (`gsqs/render3d.py`). The thin-film
+colours travel across the walls as the camera orbits. The soundtrack is the first drop of the song.
 
 ## Guest: FQxI Challenge (#11)
 

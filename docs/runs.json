@@ -1,0 +1,138 @@
+{
+ "engine": "comet-qrng-v1",
+ "recorded": "2026-09-27",
+ "runs": [
+  {
+   "job_id": "0bfeb0b7-73d8-433c-9161-9fa66805f9b0",
+   "mode": "emu",
+   "backend": "aer",
+   "num_qubits": 12,
+   "shots": 4096,
+   "raw_bits": 49152,
+   "h_bit": 0.903020562820832,
+   "ordering_penalty_bits": 43250.04688993525,
+   "budget_bits": 1135.2198138342865,
+   "budget_bits_assumption_free": 0,
+   "grade": "simulator-baseline",
+   "statements": [
+    "49152 raw Born-rule bits from 12 qubits × 4096 shots (counts readout)",
+    "conservative per-bit min-entropy h = 0.9030 (SP 800-90B estimators at 99% confidence)",
+    "modelled budget = 1135.2 bits (no dependence beyond pairwise correlations — ASSUMED, tested only by collision consistency against the pairwise tree model: full-register z = -1.14, 0/256 sub-registers failed)",
+    "assumption-free budget = 0.0 bits (whole-shot most-common-value bound, 8.38 bits/shot; capped near log2(shots) by sample size)",
+    "extractable min-entropy budget = 1135.2 bits after subtracting log2(shots!) = 43250.0 bits for counts-only readout",
+    "bytes were extracted on the modelled-independence tier",
+    "Toeplitz extractor output 256 bits, 2^-64-close to uniform given that budget (leftover hash lemma: m ≤ budget − 2·64); seed 'toeplitz-v1' is a shipped uniform seed from a documented ceremony (information-theoretic)",
+    "OUTPUT BYTES ARE PUBLIC: recomputable by anyone from the raw counts and the seed. Not key material.",
+    "mode='emu': bits come from a classical simulator's PRNG; not accounted as hardware entropy by construction",
+    "CHSH witness S = 2.828 ± 0.022 (violates the classical bound at 3σ)"
+   ],
+   "bell": {
+    "S": 2.828125,
+    "sigma_S": 0.02209272691729965,
+    "violates_classical_3sigma": true
+   },
+   "random_hex": "2e35ac44ea3477270a82d7b00ec9ddebf6b31f0050ed5c69f83c122b3eae0e00",
+   "bytes": 32,
+   "dice": [
+    6,
+    5,
+    5,
+    3,
+    5,
+    3,
+    3,
+    1,
+    2,
+    6
+   ],
+   "pulse_hash": "d3b4c9d50eb98c9d80a9cd454fe087f552a8db4a09e12359decc0762a3a0cbe0",
+   "commitment": "e6e50719e04cb6af8e089b5824277b8e7e8243f68d983e4723b7a8a39e199013",
+   "circuit_hash": "76b9752d54d5aa067d4b615ddb73b55669bad46a4a2d51e754d7da4bf9c05d16",
+   "qpu_seconds": null
+  },
+  {
+   "job_id": "f1750798-cc50-4684-aa4c-c134a6bdac6c",
+   "mode": "qpu",
+   "backend": "ibm_fez",
+   "num_qubits": 12,
+   "shots": 4096,
+   "raw_bits": 49152,
+   "h_bit": 0.8676575295778738,
+   "ordering_penalty_bits": 43250.04688993525,
+   "budget_bits": 0,
+   "budget_bits_assumption_free": 0,
+   "grade": "hardware-insufficient-entropy",
+   "statements": [
+    "49152 raw Born-rule bits from 12 qubits × 4096 shots (counts readout)",
+    "conservative per-bit min-entropy h = 0.8677 (SP 800-90B estimators at 99% confidence)",
+    "modelled budget = 0.0 bits (no dependence beyond pairwise correlations — ASSUMED, tested only by collision consistency against the pairwise tree model: full-register z = 0.48, 0/256 sub-registers failed)",
+    "assumption-free budget = 0.0 bits (whole-shot most-common-value bound, 8.21 bits/shot; capped near log2(shots) by sample size)",
+    "extractable min-entropy budget = 0.0 bits after subtracting log2(shots!) = 43250.0 bits for counts-only readout",
+    "bytes were extracted on the modelled-independence tier",
+    "Toeplitz extractor output 0 bits, 2^-64-close to uniform given that budget (leftover hash lemma: m ≤ budget − 2·64); seed 'toeplitz-v1' is a shipped uniform seed from a documented ceremony (information-theoretic)",
+    "OUTPUT BYTES ARE PUBLIC: recomputable by anyone from the raw counts and the seed. Not key material.",
+    "requested 32 bytes, delivered 0: budget-limited",
+    "CHSH witness S = 2.609 ± 0.024 (violates the classical bound at 3σ)"
+   ],
+   "bell": {
+    "S": 2.609375,
+    "sigma_S": 0.023681564429249048,
+    "violates_classical_3sigma": true
+   },
+   "random_hex": "",
+   "bytes": 0,
+   "dice": null,
+   "pulse_hash": "21618d49f21ef123136cb3195c885ae75bc3aa011d5a15295a46bc2404dfea08",
+   "commitment": "0df2531373ce21118f449f6366f9569dffd1472fd052e9ae4a2552555dfa372c",
+   "circuit_hash": "76b9752d54d5aa067d4b615ddb73b55669bad46a4a2d51e754d7da4bf9c05d16",
+   "qpu_seconds": 3
+  },
+  {
+   "job_id": "2f709282-aa7e-42de-a506-814a92f789c8",
+   "mode": "qpu",
+   "backend": "ibm_pittsburgh",
+   "num_qubits": 64,
+   "shots": 4096,
+   "raw_bits": 262144,
+   "h_bit": 0.791834280457465,
+   "ordering_penalty_bits": 43250.04688993525,
+   "budget_bits": 164324.55872630645,
+   "budget_bits_assumption_free": 0,
+   "grade": "hardware-accounted",
+   "statements": [
+    "262144 raw Born-rule bits from 64 qubits × 4096 shots (counts readout)",
+    "conservative per-bit min-entropy h = 0.7918 (SP 800-90B estimators at 99% confidence)",
+    "modelled budget = 164324.6 bits (no dependence beyond pairwise correlations — ASSUMED, tested only by collision consistency against the pairwise tree model: full-register z = -0.00, 0/512 sub-registers failed)",
+    "assumption-free budget = 0.0 bits (whole-shot most-common-value bound, 10.16 bits/shot; capped near log2(shots) by sample size)",
+    "extractable min-entropy budget = 164324.6 bits after subtracting log2(shots!) = 43250.0 bits for counts-only readout",
+    "bytes were extracted on the modelled-independence tier",
+    "Toeplitz extractor output 256 bits, 2^-64-close to uniform given that budget (leftover hash lemma: m ≤ budget − 2·64); seed 'toeplitz-v1' is a shipped uniform seed from a documented ceremony (information-theoretic)",
+    "OUTPUT BYTES ARE PUBLIC: recomputable by anyone from the raw counts and the seed. Not key material.",
+    "CHSH witness S = 2.696 ± 0.023 (violates the classical bound at 3σ)"
+   ],
+   "bell": {
+    "S": 2.69580078125,
+    "sigma_S": 0.023077604398282457,
+    "violates_classical_3sigma": true
+   },
+   "random_hex": "dbd8c1cbe218877d6c77b4ab6746a7c02f7956e0b60220cb2825c1c77ce1e9dc",
+   "bytes": 32,
+   "dice": [
+    4,
+    1,
+    2,
+    4,
+    3,
+    1,
+    6,
+    5,
+    5,
+    4
+   ],
+   "pulse_hash": "e371dd18da5c884535c5c6fbb6b0801db221af4cd5cfe6669b517e49313c0d8d",
+   "commitment": "b49294da5e0a64ab4cc85952d5d8e451c6a0e44c6a0426058ba71138fe6138d7",
+   "circuit_hash": "da1c75aef625dda09cd2e860e916b5d6baa5c68eddb011c0591c840621395172",
+   "qpu_seconds": 3
+  }
+ ]
+}
