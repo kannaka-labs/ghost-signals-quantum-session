@@ -3,7 +3,7 @@
 <img src="output/art/cover_700.png" width="360" align="right" alt="Cover: the Heesch leader, a 15-cell polyhex wearing four rings of itself, its unsettled outer rings dissolved by a quantum blur, three bare cells glowing red">
 
 A deep-bass track with vocals, a music video, cover art and a science explainer, all made by chaining
-**nine [Moth Atlas](https://platform.mothquantum.com) engines**. Every creative choice traces back to
+**ten [Moth Atlas](https://platform.mothquantum.com) engines**. Every creative choice traces back to
 certified randomness from IBM quantum hardware, and every step leaves a receipt: its engine, job id,
 backend and file hash.
 
@@ -21,6 +21,8 @@ engine that refused to certify bytes it couldn't back.
 | **explainer** (72 s, narrated) | [`output/explainer/how_do_you_know_a_random_number_is_quantum.mp4`](output/explainer/how_do_you_know_a_random_number_is_quantum.mp4) | #11 FQxI guest challenge |
 | **notebook** | [`session.ipynb`](session.ipynb), executed live against the API | #10 quantum-native 2 |
 | **web app:** The Receipt Machine | **https://kannaka-labs.github.io/ghost-signals-quantum-session/** (`docs/`) | #8 web app |
+| **game:** Wear the Rings | **https://kannaka-labs.github.io/ghost-signals-quantum-session/game/** (`docs/game/`) | #5 quantum game |
+| **plugin:** Retrocausal Tap Delay (VST3 + CLAP) | [`plugin/`](plugin/) and its zip, with audio examples | #7 VST or AU |
 | **3D turntable** (20 s) | [`output/shader/heesch_leader_entanglement_shader.mp4`](output/shader/heesch_leader_entanglement_shader.mp4) | #3 three dimensions |
 | lyrics | [`lyrics/show_me_the_receipt.md`](lyrics/show_me_the_receipt.md), every claim footnoted to a measurement | |
 

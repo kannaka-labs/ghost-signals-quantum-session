@@ -1,0 +1,13 @@
+{
+ "job_id": "ce972e74-99bc-444e-b42e-a55aa537dede",
+ "params": {
+  "emit": "map",
+  "lattice": "chain",
+  "n_sites": 8,
+  "depth": 6,
+  "disorder": 0.45,
+  "seed": 11,
+  "bpm": 120,
+  "negative_mode": "invert"
+ }
+}

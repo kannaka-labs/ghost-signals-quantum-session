@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wear the Rings</title>
+<meta name="description" content="A quantum puzzle game about the Heesch problem: surround a tile with rings of copies of itself. Sprites painted by Moth's Tessa engine, piece bag dealt from certified IBM quantum randomness.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Space+Grotesk:wght@400;600&display=swap">
+<style>
+  :root { --night:#080d13; --panel:#0f1720; --line:#22303c; --ink:#e8e2d4; --dim:#8a9aa4; --amber:#d8a048; --teal:#9cc3cf; --red:#ff543c; --green:#7fd1a4;
+          --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace; --sans:"Space Grotesk",system-ui,"Segoe UI",sans-serif; color-scheme:dark; }
+  * { box-sizing:border-box; }
+  html,body { height:100%; }
+  body { margin:0; background:var(--night); color:var(--ink); font:15px/1.5 var(--sans); display:flex; flex-direction:column; }
+  header { padding:14px 16px 10px; display:flex; flex-wrap:wrap; gap:10px 24px; align-items:baseline; border-bottom:1px solid var(--line); }
+  h1 { font-size:22px; margin:0; }
+  .kicker { font:600 11px var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--amber); }
+  .hud { font:13px var(--mono); color:var(--dim); display:flex; gap:18px; flex-wrap:wrap; }
+  .hud b { color:var(--ink); font-weight:600; }
+  .score { color:var(--amber) !important; }
+  #wrap { flex:1; position:relative; min-height:0; }
+  canvas { position:absolute; inset:0; width:100%; height:100%; touch-action:none; cursor:crosshair; }
+  .bar { display:flex; flex-wrap:wrap; gap:8px; padding:10px 16px; border-top:1px solid var(--line); background:var(--panel); align-items:center; }
+  button, select { font:13px var(--mono); color:var(--ink); background:#16222e; border:1px solid var(--line); border-radius:6px; padding:8px 12px; cursor:pointer; }
+  button:hover { background:#1d2d3b; } button.on { background:var(--amber); color:#1a1206; border-color:var(--amber); }
+  .msg { font:13px var(--mono); color:var(--dim); margin-left:auto; max-width:60ch; }
+  .msg.good { color:var(--green); } .msg.bad { color:var(--red); }
+  dialog { background:var(--panel); color:var(--ink); border:1px solid var(--line); border-radius:12px; max-width:560px; padding:22px 24px; }
+  dialog::backdrop { background:rgba(0,0,0,.6); }
+  dialog h2 { margin:0 0 8px; } dialog p { color:var(--dim); margin:0 0 10px; } dialog b { color:var(--ink); }
+  kbd { font:12px var(--mono); border:1px solid var(--line); border-radius:4px; padding:0 5px; }
+</style>
+</head>
+<body>
+<header>
+  <div><div class="kicker">Kannaka Radio · Moth Hack 2026 · a quantum game</div><h1>Wear the Rings</h1></div>
+  <div class="hud">
+    <span>level <b id="lvl"></b></span>
+    <span>rings <b id="rings">0</b></span>
+    <span>this ring <b id="cov">0/0</b></span>
+    <span>score <b class="score" id="score">0.000</b></span>
+    <span id="bagInfo"></span>
+  </div>
+</header>
+<div id="wrap"><canvas id="c"></canvas></div>
+<div class="bar">
+  <button id="rot" title="R">rotate <kbd>R</kbd></button>
+  <button id="flip" title="F">flip <kbd>F</kbd></button>
+  <button id="undo" title="Z">undo <kbd>Z</kbd></button>
+  <button id="bag" title="Q">quantum bag <kbd>Q</kbd></button>
+  <button id="hint" title="H">show the record <kbd>H</kbd></button>
+  <select id="levelSel"></select>
+  <button id="music">♪ play the song</button>
+  <button id="help">how to play</button>
+  <span class="msg" id="msg"></span>
+</div>
+
+<dialog id="about">
+  <h2>Wear the Rings</h2>
+  <p>The <b>Heesch problem</b>: how many rings of copies of itself can a shape wear before a gap is forced? Surround
+    the glowing tile with copies of it. No overlaps, every copy must touch what's already built, and a finished ring
+    can't trap a hole. A complete ring locks, and the next one begins.</p>
+  <p>Your score is Yukon's: <b>complete rings + the fraction of the next ring covered</b>. The first three shapes can
+    wear as many rings as you like. The last one is the current world record holder, a 15-cell polyhex that wears 4 rings and
+    251/254 of a fifth (4.9882). Press <b>H</b> to see the record corona ring by ring. On the night we made this
+    game, our solver proved nothing with its inner rings can beat it.</p>
+  <p><b>Quantum bag</b> (<kbd>Q</kbd>): the piece you get next is dealt by 32 certified random bytes measured on IBM's
+    <b>ibm_pittsburgh</b> quantum computer (Bell S = 2.70, beyond the classical limit of 2). No rotating or flipping:
+    place what the qubits give you.</p>
+  <p>The tiles are painted by Moth's <b>Tessa</b> engine: each colour becomes a point on a qubit's sphere and is
+    read back through a quantum circuit. Controls: move to aim, click or tap to place, <kbd>R</kbd> rotate, <kbd>F</kbd> flip,
+    <kbd>Z</kbd> undo.</p>
+  <form method="dialog"><button>play</button></form>
+</dialog>
+
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const S3 = Math.sqrt(3);
+const DIRS = [[1,0],[0,1],[-1,1],[-1,0],[0,-1],[1,-1]];
+const key = (q, r) => q + "," + r;
+const PULSE = "dbd8c1cbe218877d6c77b4ab6746a7c02f7956e0b60220cb2825c17c7ce1e9dc"; // 32 certified bytes, job 2f709282
+
+let LEADER = null;
+const LEVELS = [
+  { name: "1 · three in a row", cells: [[0,0],[1,0],[2,0]], goal: 2 },
+  { name: "2 · the rhomb", cells: [[0,0],[1,0],[0,1],[1,1]], goal: 2 },
+  { name: "3 · the flower", cells: [[0,0],[1,0],[0,1],[-1,1],[-1,0],[0,-1],[1,-1]], goal: 2 },
+  { name: "4 · the record holder", cells: null, goal: 5 },
+];
+
+// --- geometry ---------------------------------------------------------------------------------
+const rot = ([q, r]) => [-r, q + r];                 // 60 degrees
+const refl = ([q, r]) => [r, q];                      // swap two cube axes = a mirror
+function norm(cells) {
+  const mq = Math.min(...cells.map(c => c[0])), mr = Math.min(...cells.map(c => c[1]));
+  return cells.map(([q, r]) => [q - mq, r - mr]).sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+}
+function orientations(cells) {
+  const out = [], seen = new Set();
+  let cur = cells;
+  for (let f = 0; f < 2; f++) {
+    for (let k = 0; k < 6; k++) {
+      const n = norm(cur), s = JSON.stringify(n);
+      if (!seen.has(s)) { seen.add(s); out.push(n); }
+      cur = cur.map(rot);
+    }
+    cur = cur.map(refl);
+  }
+  return out;
+}
+function anchorOf(cells) {             // the cell nearest the centroid is where the cursor holds the piece
+  const cq = cells.reduce((a, c) => a + c[0], 0) / cells.length, cr = cells.reduce((a, c) => a + c[1], 0) / cells.length;
+  return cells.reduce((b, c) => (Math.hypot(c[0] - cq, c[1] - cr) < Math.hypot(b[0] - cq, b[1] - cr) ? c : b));
+}
+
+// --- state --------------------------------------------------------------------------------------
+let L, occ, patch, rings, placed, orients, oi, bagMode = false, bagPos = 0, hint = false, hover = null;
+function loadLevel(i) {
+  L = LEVELS[i];
+  const base = L.cells || LEADER.center;
+  occ = new Map();                  // cell -> ring index (0 = the tile)
+  base.forEach(([q, r]) => occ.set(key(q, r), 0));
+  patch = new Set(base.map(([q, r]) => key(q, r)));
+  rings = 0; placed = [];
+  orients = orientations(L.cells || LEADER.center);
+  oi = 0; bagPos = 0;
+  $("lvl").textContent = L.name;
+  hint = false; $("hint").classList.remove("on");
+  $("hint").style.display = L.cells ? "none" : "";
+  fit(); update(); say(L.cells ? `Surround the tile. Build ${L.goal} rings.` : "The record: 4 + 251/254 = 4.9882. Can you get close? H shows how.");
+}
+function required() {
+  const req = new Set();
+  patch.forEach(k => { const [q, r] = k.split(",").map(Number);
+    DIRS.forEach(([dq, dr]) => { const n = key(q + dq, r + dr); if (!patch.has(n)) req.add(n); }); });
+  return req;
+}
+function pieceAt(q, r) {
+  const o = orients[bagMode ? orientFromBag() : oi], a = anchorOf(o);
+  return o.map(([dq, dr]) => [q + dq - a[0], r + dr - a[1]]);
+}
+function orientFromBag() { return parseInt(PULSE.substr((bagPos % 32) * 2, 2), 16) % orients.length; }
+function valid(cells) {
+  if (cells.some(([q, r]) => occ.has(key(q, r)))) return [false, "overlaps"];
+  const touches = cells.some(([q, r]) => DIRS.some(([dq, dr]) => patch.has(key(q + dq, r + dr))));
+  if (!touches) return [false, "must touch the built patch"];
+  return [true, ""];
+}
+function place(cells) {
+  cells.forEach(([q, r]) => occ.set(key(q, r), rings + 1));
+  placed.push(cells);
+  if (bagMode) bagPos++;
+  checkRing();
+}
+function holesAfterRing() {
+  // flood from outside the bounding box; an empty cell next to the built region that the flood misses is a hole
+  const all = [...occ.keys()].map(k => k.split(",").map(Number));
+  const q0 = Math.min(...all.map(c => c[0])) - 2, q1 = Math.max(...all.map(c => c[0])) + 2;
+  const r0 = Math.min(...all.map(c => c[1])) - 2, r1 = Math.max(...all.map(c => c[1])) + 2;
+  const seen = new Set([key(q0, r0)]), stack = [[q0, r0]];
+  while (stack.length) {
+    const [q, r] = stack.pop();
+    for (const [dq, dr] of DIRS) {
+      const nq = q + dq, nr = r + dr, k = key(nq, nr);
+      if (nq < q0 || nq > q1 || nr < r0 || nr > r1 || seen.has(k) || occ.has(k)) continue;
+      seen.add(k); stack.push([nq, nr]);
+    }
+  }
+  let holes = 0;
+  for (let q = q0; q <= q1; q++) for (let r = r0; r <= r1; r++) { const k = key(q, r); if (!occ.has(k) && !seen.has(k)) holes++; }
+  return holes;
+}
+function checkRing() {
+  const req = required(), covered = [...req].filter(k => occ.has(k)).length;
+  if (covered === req.size) {
+    const holes = holesAfterRing();
+    if (holes) { say(`Ring closed but it traps ${holes} empty cell${holes > 1 ? "s" : ""}. A corona can't have holes: undo and try again.`, "bad"); update(); return; }
+    rings++;
+    occ.forEach((v, k) => { if (v === rings) patch.add(k); });
+    placed = [];
+    say(rings >= L.goal ? `Ring ${rings} complete. Level done! ${L.cells ? "Try the next shape." : "You matched the record's rings."}` : `Ring ${rings} complete. Next ring.`, "good");
+    fit();
+  }
+  update();
+}
+function undo() {
+  const cells = placed.pop();
+  if (!cells) return say("Nothing to undo in this ring.");
+  cells.forEach(([q, r]) => occ.delete(key(q, r)));
+  if (bagMode) bagPos = Math.max(0, bagPos - 1);
+  update();
+}
+function update() {
+  const req = required(), covered = [...req].filter(k => occ.has(k)).length;
+  $("rings").textContent = rings;
+  $("cov").textContent = `${covered}/${req.size}`;
+  $("score").textContent = (rings + (req.size ? covered / req.size : 0)).toFixed(3);
+  $("bagInfo").textContent = bagMode ? `bag: byte ${bagPos % 32 + 1}/32 = 0x${PULSE.substr((bagPos % 32) * 2, 2)} → orientation ${orientFromBag() + 1}/${orients.length}` : "";
+  draw();
+}
+const say = (t, cls = "") => { $("msg").textContent = t; $("msg").className = "msg " + cls; };
+
+// --- rendering ------------------------------------------------------------------------------------
+const cv = $("c"), ctx = cv.getContext("2d");
+let size = 20, ox = 0, oy = 0, dpr = 1;
+const sprite = new Image(); sprite.src = "tiles_tessa.png";
+sprite.onerror = () => { sprite.src = "tiles_classical.png"; };
+sprite.onload = () => draw();
+const RING_COL = ["#ece2ce", "#9cc3cf", "#6f9fae", "#4b7887", "#33586a", "#d8a048", "#ff543c"];
+function toPx(q, r) { return [ox + size * S3 * (q + r / 2), oy + size * 1.5 * r]; }
+function fromPx(x, y) {
+  const qf = ((x - ox) * S3 / 3 - (y - oy) / 3) / size, rf = (2 / 3) * (y - oy) / size;
+  let xq = qf, zr = rf, yc = -qf - rf, rq = Math.round(xq), rr = Math.round(zr), ry = Math.round(yc);
+  const dq = Math.abs(rq - xq), dr = Math.abs(rr - zr), dy = Math.abs(ry - yc);
+  if (dq > dr && dq > dy) rq = -rr - ry; else if (dr > dy) rr = -rq - ry;
+  return [rq, rr];
+}
+function fit() {
+  const rect = cv.getBoundingClientRect();
+  dpr = window.devicePixelRatio || 1;
+  cv.width = rect.width * dpr; cv.height = rect.height * dpr;
+  const pts = [...occ.keys()].map(k => k.split(",").map(Number));
+  const extra = L.cells ? 3 + L.cells.length : 14;
+  const xs = pts.map(([q, r]) => S3 * (q + r / 2)), ys = pts.map(([, r]) => 1.5 * r);
+  const w = Math.max(...xs) - Math.min(...xs) + extra * 2 * S3, h = Math.max(...ys) - Math.min(...ys) + extra * 3;
+  size = Math.min(cv.width / w, cv.height / h);
+  const cx = (Math.max(...xs) + Math.min(...xs)) / 2, cy = (Math.max(...ys) + Math.min(...ys)) / 2;
+  ox = cv.width / 2 - cx * size; oy = cv.height / 2 - cy * size;
+  draw();
+}
+function hexPath(x, y, s) {
+  ctx.beginPath();
+  for (let j = 0; j < 6; j++) { const a = Math.PI / 180 * (60 * j - 30); ctx.lineTo(x + s * Math.cos(a), y + s * Math.sin(a)); }
+  ctx.closePath();
+}
+function cell(q, r, ring, alpha = 1, stroke = null) {
+  const [x, y] = toPx(q, r);
+  ctx.save(); ctx.globalAlpha = alpha; hexPath(x, y, size * 0.98);
+  if (sprite.complete && sprite.naturalWidth) {
+    ctx.clip(); const k = Math.min(ring, 6), sw = sprite.naturalWidth / 7;
+    ctx.drawImage(sprite, k * sw, 0, sw, sprite.naturalHeight, x - size, y - size, size * 2, size * 2);
+  } else { ctx.fillStyle = RING_COL[Math.min(ring, 6)]; ctx.fill(); }
+  ctx.restore();
+  if (stroke) { hexPath(x, y, size * 0.98); ctx.strokeStyle = stroke; ctx.lineWidth = Math.max(1, size * 0.08); ctx.stroke(); }
+}
+function draw() {
+  if (!L) return;
+  ctx.fillStyle = "#080d13"; ctx.fillRect(0, 0, cv.width, cv.height);
+  const req = required();
+  req.forEach(k => { if (!occ.has(k)) { const [q, r] = k.split(",").map(Number), [x, y] = toPx(q, r);
+    hexPath(x, y, size * 0.92); ctx.strokeStyle = "rgba(216,160,72,.35)"; ctx.lineWidth = Math.max(1, size * 0.06); ctx.stroke(); } });
+  if (hint && LEADER) LEADER.tiles.forEach(t => { if (t.level >= 1 && t.level <= Math.min(rings + 1, 5))
+    t.cells.forEach(([q, r]) => { if (!occ.has(key(q, r))) cell(q, r, t.level, 0.22); }); });
+  occ.forEach((ring, k) => { const [q, r] = k.split(",").map(Number); cell(q, r, ring); });
+  if (hover) {
+    const cells = pieceAt(...hover), [ok] = valid(cells);
+    cells.forEach(([q, r]) => cell(q, r, rings + 1, 0.55, ok ? "#7fd1a4" : "#ff543c"));
+  }
+}
+
+// --- input ------------------------------------------------------------------------------------------
+cv.addEventListener("pointermove", (e) => { const b = cv.getBoundingClientRect(); hover = fromPx((e.clientX - b.left) * dpr, (e.clientY - b.top) * dpr); draw(); });
+cv.addEventListener("pointerleave", () => { hover = null; draw(); });
+cv.addEventListener("pointerdown", (e) => {
+  const b = cv.getBoundingClientRect(); hover = fromPx((e.clientX - b.left) * dpr, (e.clientY - b.top) * dpr);
+  const cells = pieceAt(...hover), [ok, why] = valid(cells);
+  if (ok) { place(cells); if (!$("msg").classList.contains("good") && !$("msg").classList.contains("bad")) say(""); } else say("Can't place: " + why, "bad");
+});
+const rotate = () => { if (bagMode) return say("Quantum bag: no rotating. Place what the qubits dealt.", "bad"); const o = orients[oi];
+  const r1 = norm(o.map(rot)); oi = Math.max(0, orients.findIndex(x => JSON.stringify(x) === JSON.stringify(r1))); draw(); };
+const flip = () => { if (bagMode) return say("Quantum bag: no flipping.", "bad"); const r1 = norm(orients[oi].map(refl));
+  oi = Math.max(0, orients.findIndex(x => JSON.stringify(x) === JSON.stringify(r1))); draw(); };
+$("rot").onclick = rotate; $("flip").onclick = flip; $("undo").onclick = undo;
+$("bag").onclick = () => { bagMode = !bagMode; $("bag").classList.toggle("on", bagMode); update();
+  say(bagMode ? "Quantum bag on: orientations dealt from 32 bytes measured on ibm_pittsburgh." : "Quantum bag off."); };
+$("hint").onclick = () => { hint = !hint; $("hint").classList.toggle("on", hint); draw(); };
+$("help").onclick = () => $("about").showModal();
+document.addEventListener("keydown", (e) => {
+  const k = e.key.toLowerCase();
+  if (k === "r") rotate(); else if (k === "f") flip(); else if (k === "z") undo(); else if (k === "q") $("bag").click(); else if (k === "h" && !L.cells) $("hint").click();
+});
+LEVELS.forEach((l, i) => { const o = document.createElement("option"); o.value = i; o.textContent = l.name; $("levelSel").appendChild(o); });
+$("levelSel").onchange = (e) => loadLevel(+e.target.value);
+let audio = null;
+$("music").onclick = () => { if (!audio) { audio = new Audio("show_me_the_receipt_excerpt.mp3"); audio.loop = true; }
+  if (audio.paused) { audio.play().catch(() => {}); $("music").textContent = "♪ pause"; } else { audio.pause(); $("music").textContent = "♪ play the song"; } };
+window.addEventListener("resize", () => L && fit());
+
+fetch("leader.json").then(r => r.json()).then(d => {
+  LEADER = { tiles: d.tiles, center: d.tiles.find(t => t.level === 0).cells };
+  const qs = new URLSearchParams(location.search), lv = Math.min(Math.max((+qs.get("level") || 1) - 1, 0), LEVELS.length - 1);
+  $("levelSel").value = lv;
+  loadLevel(lv);
+  if (qs.get("hint") === "1" && !LEVELS[lv].cells) $("hint").click();
+  if (qs.has("level")) return;                       // deep links skip the intro
+  try { if (!localStorage.getItem("wtr-seen")) { $("about").showModal(); localStorage.setItem("wtr-seen", "1"); } } catch { $("about").showModal(); }
+});
+</script>
+</body>
+</html>

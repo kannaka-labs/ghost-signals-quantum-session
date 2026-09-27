@@ -1,0 +1,23 @@
+[package]
+name = "retrocausal_tap_delay"
+version = "0.1.0"
+edition = "2021"
+description = "A tempo-synced multi-tap delay whose taps were measured on a quantum computer (Moth Atlas retrocausal-echo-v1)"
+# nih-plug's VST3 bindings are GPLv3, so this plugin crate is GPLv3 (see plugin/LICENSE); the rest of
+# the repository keeps its own licence.
+license = "GPL-3.0-or-later"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[dependencies]
+nih_plug = { git = "https://github.com/robbert-vdh/nih-plug.git" }
+hound = "3.5"
+
+[[bin]]
+name = "render_examples"
+path = "src/bin/render_examples.rs"
+
+[profile.release]
+lto = "thin"
+strip = "symbols"

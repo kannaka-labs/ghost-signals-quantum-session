@@ -2,8 +2,8 @@
 
 Repo for every entry: https://github.com/kannaka-labs/ghost-signals-quantum-session
 Team: Nick Flach (kannaka-labs), with 0xSCADA-QE, the constellation's QE agent, building.
-Engines used across the project (9): comet-qrng-v1, qrc-midi-v1, blur-midi-v1, graph-v1,
-retrocausal-echo-v1, qrc-audio-v1, blur-v1, telablur-v1, entanglement-shader-v1.
+Engines used across the project (10): comet-qrng-v1, qrc-midi-v1, blur-midi-v1, graph-v1,
+retrocausal-echo-v1, qrc-audio-v1, blur-v1, telablur-v1, entanglement-shader-v1, tessa-image-v1.
 
 Base URL for the file links below: `https://github.com/kannaka-labs/ghost-signals-quantum-session/blob/main/`
 
@@ -53,7 +53,7 @@ bytes.
 
 ## #6 (Daisy Chain)
 
-**Engines: 9**, each doing a job nothing else in the chain does:
+**Engines: 10**, each doing a job nothing else in the chain does:
 - comet-qrng-v1: the seed;
 - qrc-midi-v1: three lead takes;
 - blur-midi-v1: the ghost counter-voice;
@@ -62,7 +62,8 @@ bytes.
 - retrocausal-echo-v1: the echo, one impulse response re-rendered across stems;
 - blur-v1: the cover and the drop pulses;
 - telablur-v1: the ring-to-ring morphs;
-- entanglement-shader-v1: the 3D material.
+- entanglement-shader-v1: the 3D material;
+- tessa-image-v1: the game sprites.
 
 Output assets chain directly into the next engine, without re-uploading.
 
@@ -96,6 +97,37 @@ and a CERTIFIED / REFUSED stamp with the bytes and dice.
 - **Live** mode prints a fresh receipt with your own Atlas key, through a whitelisting proxy
   (`docs/proxy`, as a Cloudflare Worker or `node docs/proxy/server.mjs`). The proxy is needed because
   the Atlas API only answers browser calls from Moth's own site.
+
+## #5 (Quantum game): Wear the Rings (eligible for the Global Quantum Game Jam)
+
+**Play:** https://kannaka-labs.github.io/ghost-signals-quantum-session/game/
+**Deep link to the record:** https://kannaka-labs.github.io/ghost-signals-quantum-session/game/?level=4&hint=1
+
+A puzzle game about the Heesch problem. You surround a tile with rings of copies of itself: no overlaps,
+every copy touching what's built, no trapped holes. Your score is Yukon's own (complete rings plus the
+fraction of the next ring). Three shapes that tile the plane lead up to the real record holder, a
+15-cell polyhex at 4 + 251/254 = 4.9882, and pressing H ghosts in its record corona ring by ring. We
+replayed the record through the game's rules: rings 1–4 close cleanly and ring 5 scores 251/254.
+- **Tessa (tessa-image-v1)** paints the tile sprites. Each colour is encoded on a qubit's sphere, with
+  entangling distortion gates, and read back through a circuit on IBM hardware (job 404cf1aa). At the
+  time of writing that job was still in IBM's queue, and the game shows the pre-quantum sprites until
+  its result is committed.
+- **Quantum bag** mode deals each piece's orientation from 32 certified random bytes measured on
+  ibm_pittsburgh (comet-qrng-v1). No rotating: you place what the qubits give you.
+- The soundtrack is the song.
+
+## #7 (Make a VST or AU): Retrocausal Tap Delay
+
+**Plugin:** `plugin/RetrocausalTapDelay-win64.zip` (VST3 + CLAP, Windows x64; source in `plugin/`)
+**Audio examples:** `plugin/examples/`, the song's hook vocal and quantum melody through each preset
+
+A tempo-synced multi-tap delay whose taps were measured on a quantum computer. retrocausal-echo-v1 with
+`emit: map` returns the signed return at each site and depth of a scrambled, reversed qubit chain.
+Each return becomes a tap (time, level, pan, polarity), and negative returns come back
+phase-inverted. It ships three measured maps as presets: Receipt room (the song's echo), Square lattice
+5×4, and Disordered chain. The controls are mix, feedback, time stretch, stereo width, and "keep
+inversions". Written in Rust with nih-plug. The DSP is unit-tested (tap timing and polarity), and the
+DLL exports the VST3 and CLAP entry points. It has not been loaded in a DAW on our machine yet.
 
 ## #3 (Three dimensions)
 

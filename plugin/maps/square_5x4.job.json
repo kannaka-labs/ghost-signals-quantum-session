@@ -1,0 +1,14 @@
+{
+ "job_id": "d8ad2243-89a0-4528-9a03-456ddd440c3b",
+ "params": {
+  "emit": "map",
+  "lattice": "square",
+  "width": 5,
+  "height": 4,
+  "depth": 6,
+  "bpm": 120,
+  "theta_z": 0.6,
+  "negative_mode": "phase",
+  "diffusion_ms": 40
+ }
+}

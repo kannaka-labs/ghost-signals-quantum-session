@@ -14,3 +14,7 @@ output/explainer/explainer_audio.wav
 output/shader/test_frame.png
 output/shader/turntable_audio.wav
 output/shader/entanglement_shader.zip
+plugin/target/
+plugin/bundle/
+output/shader/game_*.png
+output/shader/webapp_shot.png

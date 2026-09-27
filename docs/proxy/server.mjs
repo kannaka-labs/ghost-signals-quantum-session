@@ -26,7 +26,8 @@ createServer(async (req, res) => {
 const TYPES = { ".html": "text/html", ".json": "application/json", ".js": "text/javascript", ".mjs": "text/javascript", ".png": "image/png", ".css": "text/css" };
 createServer(async (req, res) => {
   const path = normalize(decodeURIComponent(new URL(req.url, "http://x").pathname)).replace(/^([\\/])+/, "");
-  const file = join(APP_DIR, path === "" || path === "." ? "index.html" : path);
+  let file = join(APP_DIR, path === "" || path === "." ? "index.html" : path);
+  if (path && path !== "." && req.url.split("?")[0].endsWith("/")) file = join(file, "index.html");      // folder URLs, as GitHub Pages serves them
   if (!file.startsWith(APP_DIR)) return res.writeHead(403).end();
   try {
     const data = await readFile(file);
