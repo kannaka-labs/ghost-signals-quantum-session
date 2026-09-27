@@ -1,0 +1,11 @@
+{
+ "graph": "ea85e5c3-319c-46d2-9788-02804fbbac4c",
+ "take_B": {
+  "job": "866caa79-1583-46ca-ab31-f3379f1194f8",
+  "seed": 182
+ },
+ "take_C": {
+  "job": "0652a7da-1e10-462c-afc7-92e453aaa0f3",
+  "seed": 2
+ }
+}

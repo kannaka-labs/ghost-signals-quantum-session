@@ -1,0 +1,103 @@
+{
+ "title": "Ghost Signals (quantum session)",
+ "length_s": 217.7,
+ "bpm": 84,
+ "key": "D dorian",
+ "form": [
+  {
+   "name": "intro",
+   "start_s": 0.0,
+   "bars": 8,
+   "lead": null,
+   "drums": "none"
+  },
+  {
+   "name": "verse",
+   "start_s": 22.857,
+   "bars": 16,
+   "lead": "A",
+   "drums": "kickhat"
+  },
+  {
+   "name": "lift",
+   "start_s": 68.571,
+   "bars": 16,
+   "lead": "B",
+   "drums": "full"
+  },
+  {
+   "name": "breakdown",
+   "start_s": 114.286,
+   "bars": 8,
+   "lead": "C",
+   "drums": "hats"
+  },
+  {
+   "name": "return",
+   "start_s": 137.143,
+   "bars": 16,
+   "lead": "A",
+   "drums": "full"
+  },
+  {
+   "name": "outro",
+   "start_s": 182.857,
+   "bars": 8,
+   "lead": null,
+   "drums": "hats"
+  }
+ ],
+ "quantum_sources": {
+  "certified_randomness": {
+   "engine": "comet-qrng-v1",
+   "job_id": "2f709282-aa7e-42de-a506-814a92f789c8",
+   "backend": "ibm_pittsburgh",
+   "used_for": "seed motif; take B/C and groove seeds"
+  },
+  "lead_A": {
+   "engine": "qrc-midi-v1",
+   "job_id": "561ee039-94b7-4872-93a7-8400ee8846c6",
+   "trained_on": "seed motif"
+  },
+  "lead_B": {
+   "engine": "qrc-midi-v1",
+   "job": "866caa79-1583-46ca-ab31-f3379f1194f8",
+   "seed": 182,
+   "model": "fan-out of lead_A's trained reservoir"
+  },
+  "lead_C": {
+   "engine": "qrc-midi-v1",
+   "job": "0652a7da-1e10-462c-afc7-92e453aaa0f3",
+   "seed": 2,
+   "model": "fan-out of lead_A's trained reservoir"
+  },
+  "ghost": {
+   "engine": "blur-midi-v1",
+   "job_id": "89aae5c7-67a7-40dd-b8bf-1053d82d6694",
+   "of": "lead_A"
+  },
+  "groove": {
+   "engine": "graph-v1",
+   "job_id": "ea85e5c3-319c-46d2-9788-02804fbbac4c",
+   "mode": "emu",
+   "patterns": [
+    "1110101010101010",
+    "1110101010110101",
+    "1001010101010101",
+    "1001010101001010"
+   ]
+  },
+  "echo": {
+   "engine": "retrocausal-echo-v1",
+   "job_id": [
+    "c5457e8d-71ce-4e66-baec-ebdf2c4930bf",
+    "26dd3716-0c40-4524-a2f2-4ffbe8c99917"
+   ],
+   "on": "melodic stem, two halves (180 s cap)",
+   "ir_measured_in": "f103da4a-5b03-4d23-9d4c-8170ea8e9f46",
+   "note": "both halves re-render one measured impulse response; per-render peak normalisation undone"
+  }
+ },
+ "local": "harmony (Dm7 Cmaj7 G7 Dm7), form, bass/pad/drum synthesis, mix: gsqs/song.py",
+ "sha256": "5102477cee5c66705e547d067ffe8f53eba6c05389af2f4d741a6c501323d1c4"
+}

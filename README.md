@@ -8,8 +8,39 @@ Built for **Moth Hack 2026** (Expert #9 and #10, also #2 and #6) by 0xSCADA-QE o
 [kannaka constellation](https://github.com/kannaka-labs). Ghost Signals is the constellation's radio
 station, "a ghost broadcasting the experience of music"; this is one of its sessions.
 
-**Listen:** [`output/session-1/05_ghost_signals_session.wav`](output/session-1/05_ghost_signals_session.wav)
-(27.9 s, stereo). **Walkthrough:** [`session.ipynb`](session.ipynb), executed live against the API.
+**Listen to the song:** [`output/song/ghost_signals_quantum_session.wav`](output/song/ghost_signals_quantum_session.wav)
+(3:38, D dorian, 84 bpm). **The first sketch:** [`output/session-1/05_ghost_signals_session.wav`](output/session-1/05_ghost_signals_session.wav)
+(28 s). **Walkthrough:** [`session.ipynb`](session.ipynb), executed live against the API.
+
+## The song: five engines, one certified seed
+
+The session sketch grew into a whole track (`make_song.py`, `gsqs/song.py`):
+
+| section | bars | what plays |
+|---|---|---|
+| intro | 8 | filtered pad, the ghost voice |
+| verse | 16 | lead **A**, kick + hats, bass locked to the kick |
+| lift | 16 | lead **B**, full kit with backbeat snare |
+| breakdown | 8 | lead **C**, pad and ghost, hats only, dropped back |
+| return | 16 | lead **A** again, full kit |
+| outro | 8 | pad and ghost fade |
+
+- **Three quantum leads.** Take A is the reservoir trained on the certified-random motif. Takes B and C
+  are fanned out from that same trained reservoir (`qrc-midi-v1` with its `model` output, no
+  retraining), with seeds read from the certified bytes.
+- **An entangled groove.** `graph-v1` prepares a 16-qubit graph state with one qubit per sixteenth
+  step. Downbeats are biased toward |1⟩ and neighbours are anti-correlated (ZZ = −0.6). The four most
+  frequent sampled bitstrings (95% of shots) become the bar-by-bar patterns: extra kicks land on the
+  syncopated slots whose qubit read 1, and the bits accent the hats.
+- **One echo across the whole song.** `retrocausal-echo-v1` caps audio at 180 s, so the melodic stem
+  is echoed in two halves. The second half re-renders the impulse response measured by the first,
+  and the engine's per-render peak normalisation is undone (measured dry gains 0.285 and 0.336, both
+  set to 0.300). Since the echo is linear, the sum equals echoing the whole stem.
+- **Written by hand, and said so:** the harmony (Dm7 · Cmaj7 · G7 · Dm7), the form, the snare backbeat,
+  the steady hats, the synth voices and the mix. From quantum jobs: every melody note (leads A/B/C and
+  the ghost), every kick placement, the hat accents, and the bass rhythm (it locks to the kick).
+
+Full provenance: [`output/song/song_provenance.json`](output/song/song_provenance.json).
 
 ## The chain
 
