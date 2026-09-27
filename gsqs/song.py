@@ -265,7 +265,7 @@ def add_stereo(buf, sig, at, gain):
     buf[i:i + len(sig)] += gain * sig
 
 
-def master(parts: list[np.ndarray], fade_s: float = 6.0) -> np.ndarray:
+def master(parts: list[np.ndarray], fade_s: float = 6.0, drive: float = 1.2) -> np.ndarray:
     n = max(len(p) for p in parts)
     mix = np.zeros((n, 2))
     for p in parts:
@@ -275,7 +275,7 @@ def master(parts: list[np.ndarray], fade_s: float = 6.0) -> np.ndarray:
     X = np.fft.rfft(mix, axis=0)
     f = np.fft.rfftfreq(len(mix), 1 / SR)
     mix = np.fft.irfft(X * (1 + 0.58 / (1 + (3000 / np.maximum(f, 1)) ** 2))[:, None], n=len(mix), axis=0)
-    mix = np.tanh(1.2 * mix / (np.abs(mix).max() + 1e-9)) / np.tanh(1.2)
+    mix = np.tanh(drive * mix / (np.abs(mix).max() + 1e-9)) / np.tanh(drive)
     f = int(fade_s * SR)
     mix[-f:] *= np.linspace(1, 0, f)[:, None] ** 2
     return mix / (np.abs(mix).max() + 1e-9) * 0.89

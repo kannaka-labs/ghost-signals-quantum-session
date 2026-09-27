@@ -4,3 +4,10 @@ __pycache__/
 .ipynb_checkpoints/
 
 output/song/melodic_*.wav
+output/edm/*_send.wav
+output/edm/*_echo_*.wav
+output/edm/hook_dry.wav
+output/**/peek_*.png
+output/**/contact.png
+output/**/dbg_*.png
+output/explainer/explainer_audio.wav

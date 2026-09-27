@@ -1,0 +1,28 @@
+{
+ "runs": {
+  "simulator (control)": {
+   "S": 2.828,
+   "sig": 0.022,
+   "bits": 49152,
+   "h": 0.903
+  },
+  "ibm_fez, 12 qubits": {
+   "S": 2.609,
+   "sig": 0.024,
+   "bits": 49152,
+   "h": 0.8677
+  },
+  "ibm_pittsburgh, 64 qubits": {
+   "S": 2.696,
+   "sig": 0.023,
+   "bits": 262144,
+   "h": 0.7918
+  }
+ },
+ "ordering_charge_bits": 43250,
+ "jobs": {
+  "simulator": "0bfeb0b7-73d8-433c-9161-9fa66805f9b0",
+  "ibm_fez": "f1750798-cc50-4684-aa4c-c134a6bdac6c",
+  "ibm_pittsburgh": "2f709282-aa7e-42de-a506-814a92f789c8"
+ }
+}

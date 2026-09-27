@@ -1,18 +1,71 @@
-# Ghost Signals: a quantum session
+# Show Me the Receipt: a Kannaka Radio quantum session
 
-A short track made by chaining four [Moth Atlas](https://platform.mothquantum.com) engines, where every
-creative choice traces back to certified randomness from IBM quantum hardware. Every step leaves a
-receipt: its engine, job id, backend and file hash.
+<img src="output/art/cover_700.png" width="360" align="right" alt="Cover: the Heesch leader, a 15-cell polyhex wearing four rings of itself, its unsettled outer rings dissolved by a quantum blur, three bare cells glowing red">
 
-Built for **Moth Hack 2026** (Expert #9 and #10, also #2 and #6) by 0xSCADA-QE of the
-[kannaka constellation](https://github.com/kannaka-labs). Ghost Signals is the constellation's radio
-station, "a ghost broadcasting the experience of music"; this is one of its sessions.
+A deep-bass track with vocals, a music video, cover art and a science explainer, all made by chaining
+**eight [Moth Atlas](https://platform.mothquantum.com) engines**. Every creative choice traces back to
+certified randomness from IBM quantum hardware, and every step leaves a receipt: its engine, job id,
+backend and file hash.
 
-**Listen to the song:** [`output/song/ghost_signals_quantum_session.wav`](output/song/ghost_signals_quantum_session.wav)
-(3:38, D dorian, 84 bpm). **The first sketch:** [`output/session-1/05_ghost_signals_session.wav`](output/session-1/05_ghost_signals_session.wav)
-(28 s). **Walkthrough:** [`session.ipynb`](session.ipynb), executed live against the API.
+Made on the night of 26–27 September 2026 by 0xSCADA-QE and Nick Flach of the
+[kannaka constellation](https://github.com/kannaka-labs), for **Moth Hack 2026**. **Kannaka Radio** is
+the constellation's radio station; this is one of its sessions. The lyrics are about that same night's
+research: a mathematical tiling search that came back "unsatisfiable", and a quantum random-number
+engine that refused to certify bytes it couldn't back.
 
-## The song: five engines, one certified seed
+| | file | Moth Hack challenge |
+|---|---|---|
+| **the song** (2:48, 140 bpm, vocals) | [`output/edm/show_me_the_receipt.wav`](output/edm/show_me_the_receipt.wav) | #2 audible, #6 daisy chain, #9 repo |
+| **music video** (1280×720) | [`output/video/show_me_the_receipt.mp4`](output/video/show_me_the_receipt.mp4) | #4 moving image |
+| **cover art** | [`output/art/cover.png`](output/art/cover.png) | #1 one image, one engine |
+| **explainer** (72 s, narrated) | [`output/explainer/how_do_you_know_a_random_number_is_quantum.mp4`](output/explainer/how_do_you_know_a_random_number_is_quantum.mp4) | #11 FQxI guest challenge |
+| **notebook** | [`session.ipynb`](session.ipynb), executed live against the API | #10 quantum-native 2 |
+| lyrics | [`lyrics/show_me_the_receipt.md`](lyrics/show_me_the_receipt.md), every claim footnoted to a measurement | |
+
+Earlier iterations are kept: the 28-second sketch (`output/session-1/`) and the 3:38 instrumental
+(`output/song/`).
+
+## The third iteration: "Show Me the Receipt"
+
+`make_edm.py`, `gsqs/edm.py`, `gsqs/voice.py`, `gsqs/lyrics.py`. 140 bpm half-time deep bass in D dorian:
+intro · verse · build · drop · break · build · drop · outro.
+
+- **Vocals: ElevenLabs text-to-speech in Kannaka Radio's standing voices.** KANNAKA
+  (`NTqGiNK8P02i66yY2GOH`) is the station; 0xSCADA-QE (`cjVigY5qzO86Huf0OWal`) is the measurement
+  engineer, set to the highest stability and lowest style in the cast because a meter does not emote.
+  The last word of the hook, "receipt", is timed to land on the first drop.
+- **Quantum vocal chops (`qrc-audio-v1`).** The hook is cut into eighth-note chunks (0.214 s at 140 bpm).
+  A quantum reservoir learns their order and writes new eight-bar sequences for the drops: one trained
+  take, plus a fan-out from the same model with the chunk vocabulary passed back in.
+- **Wobble from the graph state.** Each bar's growl-bass wobble rate (2, 4 or 8 sixteenths) is read
+  from that bar's `graph-v1` bitstring, the same entangled groove that places the kicks.
+- **One quantum room.** The vocal and music stems are both re-rendered through the one impulse
+  response `retrocausal-echo-v1` measured for the instrumental. The vocal send is wet only: the
+  dry-in-wet gain measures −0.001.
+- **Leads:** the three `qrc-midi-v1` takes, retimed from 84 to 140 bpm by beats, played as plucks.
+- **Mix, measured rather than heard:** the drops are loudest (−11.1 and −11.0 dBFS RMS), the builds
+  hold back (−14), and the intro and outro sit at −15. Presence is −13.6 dB and there is no clipping.
+
+## The picture: cover (#1), video (#4), explainer (#11)
+
+- **Cover.** The Heesch leader (the current best answer to "how many rings of copies of itself can a
+  shape wear?": 4 rings + 251/254 of a fifth) run through `blur-v1`. It is masked to rings 3–5, so the
+  quantum blur scatters only the unsettled frontier into interference echoes, while the proven inner
+  rings stay sharp. Parameters: `strength 0.55, style rx, size 1024`, with the mask in
+  `output/art/mask_outer.png`.
+- **Video.** The corona is built ring by ring during the verse, through five `telablur-v1` morphs (each
+  ring-stage image teleported into the next through a selector-qubit rotation, `strength 0.5`). The
+  build zooms onto a bare cell, and the drops pulse between `blur-v1` strengths (0.4, 0.8) on the beat.
+  Lyrics are subtitled in speaker colour.
+- **Explainer: "How do you know a random number is quantum?"** Kannaka asks and 0xSCADA-QE answers,
+  over charts of our three `comet-qrng-v1` runs: the Bell test (simulator S = 2.828, `ibm_fez` 2.609,
+  `ibm_pittsburgh` 2.696; the classical limit is 2), and the randomness budget. At 12 qubits the entropy
+  (42,649 bits) came up **601 bits short** of the 43,250-bit charge for lost shot order, so the engine
+  certified zero bytes. At 64 qubits there were 164,316 bits to spare.
+
+All image job ids and parameters are in `output/art/art_jobs.json`; the explainer's numbers are in
+`output/explainer/runs.json`.
+## Second iteration: the instrumental (five engines, one certified seed)
 
 The session sketch grew into a whole track (`make_song.py`, `gsqs/song.py`):
 

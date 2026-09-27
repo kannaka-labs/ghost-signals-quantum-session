@@ -1,0 +1,1 @@
+No. Noise means each raw bit carries less than a full bit of randomness. We measured about zero point eight. And the machine only reports how often each result came up, not in what order, so we pay for that lost order too: forty-three thousand bits.

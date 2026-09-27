@@ -6,7 +6,7 @@ cells = [
     md("""# Ghost Signals: a quantum session
 
 A short track made by chaining four Moth Atlas engines, with every step's provenance kept.
-[Ghost Signals](https://github.com/kannaka-labs) is the kannaka constellation's radio station: "a ghost
+[Kannaka Radio](https://github.com/kannaka-labs/kannaka-radio) is the kannaka constellation's radio station: "a ghost
 broadcasting the experience of music". This notebook is one of its sessions, made on quantum hardware
 and quantum simulators, with a receipt for every step.
 

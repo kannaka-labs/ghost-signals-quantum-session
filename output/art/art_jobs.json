@@ -1,0 +1,83 @@
+{
+ "cover_blur_0.55": {
+  "engine": "blur-v1",
+  "job_id": "09e3945f-b596-4868-aef0-c7672bedba4c",
+  "params": {
+   "strength": 0.55,
+   "style": "rx",
+   "size": 1024
+  }
+ },
+ "cover_blur_0.85": {
+  "engine": "blur-v1",
+  "job_id": "42c2b9c9-866d-4af5-98d7-1f1575e17882",
+  "params": {
+   "strength": 0.85,
+   "style": "rx",
+   "size": 1024
+  }
+ },
+ "morph_0_1": {
+  "engine": "telablur-v1",
+  "job_id": "43dd1f7b-5b84-4bc2-b61a-96a72d26f1be",
+  "params": {
+   "strength": 0.5,
+   "direction": "full",
+   "size": 1024
+  }
+ },
+ "morph_1_2": {
+  "engine": "telablur-v1",
+  "job_id": "ffa931cd-f2e0-405b-bb45-a46df5eb0371",
+  "params": {
+   "strength": 0.5,
+   "direction": "full",
+   "size": 1024
+  }
+ },
+ "morph_2_3": {
+  "engine": "telablur-v1",
+  "job_id": "d324d193-588a-4942-bca9-bd21545e1b42",
+  "params": {
+   "strength": 0.5,
+   "direction": "full",
+   "size": 1024
+  }
+ },
+ "morph_3_4": {
+  "engine": "telablur-v1",
+  "job_id": "5a88b4cd-01f2-4de5-b70f-5b61b503d96c",
+  "params": {
+   "strength": 0.5,
+   "direction": "full",
+   "size": 1024
+  }
+ },
+ "morph_4_5": {
+  "engine": "telablur-v1",
+  "job_id": "efa31a81-0fae-44af-aa10-a81c5a5125d2",
+  "params": {
+   "strength": 0.5,
+   "direction": "full",
+   "size": 1024
+  }
+ },
+ "pulse_0.4": {
+  "engine": "blur-v1",
+  "job_id": "02a13b29-f697-49a2-ad4c-7441225c8ef0",
+  "params": {
+   "strength": 0.4,
+   "style": "rx",
+   "size": 1024
+  }
+ },
+ "pulse_0.8": {
+  "engine": "blur-v1",
+  "job_id": "1ef3508d-80a8-4cc7-bbc5-1aae1970b706",
+  "params": {
+   "strength": 0.8,
+   "style": "rx",
+   "size": 1024
+  }
+ }
+}

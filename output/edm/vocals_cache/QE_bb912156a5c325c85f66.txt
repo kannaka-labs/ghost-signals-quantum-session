@@ -1,0 +1,1 @@
+With twelve qubits, the budget came up six hundred bits short. The engine gave us zero bytes. It refused to pretend.

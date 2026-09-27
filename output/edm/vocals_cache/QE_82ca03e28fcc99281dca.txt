@@ -1,0 +1,1 @@
+First, a Bell test. Two entangled qubits, measured at different angles. Anything classical scores two at most. Quantum mechanics allows up to two point eight three.

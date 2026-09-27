@@ -1,0 +1,200 @@
+{
+ "title": "Show Me the Receipt",
+ "artist": "Kannaka Radio (quantum session)",
+ "bpm": 140,
+ "key": "D dorian",
+ "length_s": 167.6,
+ "form": [
+  {
+   "name": "intro",
+   "start_s": 0.0,
+   "bars": 8
+  },
+  {
+   "name": "verse",
+   "start_s": 13.71,
+   "bars": 16
+  },
+  {
+   "name": "build",
+   "start_s": 41.14,
+   "bars": 8
+  },
+  {
+   "name": "drop",
+   "start_s": 54.86,
+   "bars": 16
+  },
+  {
+   "name": "break",
+   "start_s": 82.29,
+   "bars": 16
+  },
+  {
+   "name": "build2",
+   "start_s": 109.71,
+   "bars": 8
+  },
+  {
+   "name": "drop2",
+   "start_s": 123.43,
+   "bars": 16
+  },
+  {
+   "name": "outro",
+   "start_s": 150.86,
+   "bars": 8
+  }
+ ],
+ "vocals": {
+  "provider": "ElevenLabs TTS",
+  "model": "eleven_multilingual_v2",
+  "voices": {
+   "KANNAKA": "NTqGiNK8P02i66yY2GOH",
+   "QE": "cjVigY5qzO86Huf0OWal"
+  },
+  "lines": [
+   {
+    "t": 1.71,
+    "who": "QE",
+    "text": "This is Kannaka Radio."
+   },
+   {
+    "t": 5.14,
+    "who": "QE",
+    "text": "It's late, and the machines are still working."
+   },
+   {
+    "t": 9.43,
+    "who": "QE",
+    "text": "Everything you hear tonight comes with a receipt."
+   },
+   {
+    "t": 14.57,
+    "who": "KANNAKA",
+    "text": "We asked a shape if it could wear five rings of itself."
+   },
+   {
+    "t": 21.43,
+    "who": "KANNAKA",
+    "text": "Fifteen cells. The fifth ring left three places bare."
+   },
+   {
+    "t": 28.29,
+    "who": "KANNAKA",
+    "text": "A million and a half questions, seventeen million rules..."
+   },
+   {
+    "t": 35.14,
+    "who": "KANNAKA",
+    "text": "and the answer came back quiet. It isn't there."
+   },
+   {
+    "t": 41.57,
+    "who": "QE",
+    "text": "Unsatisfiable is not a failure."
+   },
+   {
+    "t": 44.57,
+    "who": "QE",
+    "text": "It's a map of where not to go."
+   },
+   {
+    "t": 47.35,
+    "who": "KANNAKA",
+    "text": "Leave a ghost, leave a trace. Every signal knows its place. If it couldn't fail, it didn't count. Show me the receipt."
+   },
+   {
+    "t": 83.14,
+    "who": "QE",
+    "text": "We asked a quantum machine for a handful of chance."
+   },
+   {
+    "t": 87.43,
+    "who": "QE",
+    "text": "Twelve qubits wide, and the certificate said: zero bytes."
+   },
+   {
+    "t": 92.57,
+    "who": "QE",
+    "text": "It would rather give us nothing than a guess."
+   },
+   {
+    "t": 96.86,
+    "who": "QE",
+    "text": "Sixty-four wide, and the Bell test read two point seven."
+   },
+   {
+    "t": 102.0,
+    "who": "QE",
+    "text": "The classical ceiling is two."
+   },
+   {
+    "t": 105.43,
+    "who": "QE",
+    "text": "Thirty sigma over the line."
+   },
+   {
+    "t": 110.14,
+    "who": "KANNAKA",
+    "text": "It's twenty twenty-six, and the agents work the night shift."
+   },
+   {
+    "t": 114.0,
+    "who": "KANNAKA",
+    "text": "Half the world is certain, and the other half is guessing."
+   },
+   {
+    "t": 118.29,
+    "who": "KANNAKA",
+    "text": "We don't need to be certain."
+   },
+   {
+    "t": 120.86,
+    "who": "KANNAKA",
+    "text": "We need to be checked."
+   },
+   {
+    "t": 123.43,
+    "who": "KANNAKA",
+    "text": "Leave a ghost, leave a trace. Every signal knows its place. If it couldn't fail, it didn't count. Show me the receipt."
+   },
+   {
+    "t": 152.57,
+    "who": "QE",
+    "text": "Kannaka Radio."
+   },
+   {
+    "t": 155.14,
+    "who": "QE",
+    "text": "Failures ship beside the passes."
+   },
+   {
+    "t": 159.43,
+    "who": "QE",
+    "text": "Every receipt is public."
+   }
+  ]
+ },
+ "quantum": {
+  "chops": {
+   "chops_1": "35ac3ba2-aefd-44bc-9657-0ecd26f87004",
+   "chops_2": "aaf0a5ee-0bea-49dd-bfaf-08b06d83a3a8",
+   "chops_model": "1475f6eb-8c39-4798-9ef5-952405cd189a",
+   "chunk_seconds": 0.214286
+  },
+  "echo_renders": {
+   "vocal": "3059ca34-9a93-48cb-a56b-1a67190c7725",
+   "music": "278467dd-89b6-4ff1-904e-80f414d1714f"
+  },
+  "echo_ir_measured_in": "f103da4a-5b03-4d23-9d4c-8170ea8e9f46",
+  "wobble_rates_steps": [
+   4,
+   2,
+   8,
+   4
+  ],
+  "lead_takes_groove_randomness": "see output/song/song_provenance.json"
+ },
+ "sha256": "6df19a30d9d605217b5278fa0b1d80ecf409ace73f74a09ff9213b5680fd8440"
+}

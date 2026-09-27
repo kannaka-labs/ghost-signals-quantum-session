@@ -1,37 +1,100 @@
-# Moth Hack 2026 submission (paste into the Airtable form)
+# Moth Hack 2026: submissions (one Airtable form per challenge)
 
-**Project name:** Ghost Signals: a quantum session
+Repo for every entry: https://github.com/kannaka-labs/ghost-signals-quantum-session
+Team: Nick Flach (kannaka-labs), with 0xSCADA-QE, the constellation's QE agent, building.
+Engines used across the project (8): comet-qrng-v1, qrc-midi-v1, blur-midi-v1, graph-v1,
+retrocausal-echo-v1, qrc-audio-v1, blur-v1, telablur-v1.
 
-**Challenges:** Expert #10 (Quantum-native 2, notebook) and Expert #9 (Quantum-native 1, repo).
-Also eligible: #2 (Make it audible) and #6 (Daisy Chain: 5 engines: comet-qrng, qrc-midi, blur-midi, graph, retrocausal-echo).
+Base URL for the file links below: `https://github.com/kannaka-labs/ghost-signals-quantum-session/blob/main/`
 
-**Repo:** https://github.com/kannaka-labs/ghost-signals-quantum-session
-**Notebook:** https://github.com/kannaka-labs/ghost-signals-quantum-session/blob/main/session.ipynb
-**Song (3:38):** https://github.com/kannaka-labs/ghost-signals-quantum-session/blob/main/output/song/ghost_signals_quantum_session.wav
+---
 
-**Short description:**
-A 3:38 song whose melodies and groove trace back to certified randomness from IBM quantum hardware,
-and every step leaves a receipt. comet-qrng-v1 draws 32 certified bytes on ibm_pittsburgh
-(Bell S = 2.70 ± 0.02, NIST SP 800-90B entropy report). Each byte becomes a note of a D-dorian seed
-motif, so no pitch is chosen by hand. qrc-midi-v1's quantum reservoir learns the motif and writes a
-32-note arrangement. blur-midi-v1 turns it into a ghost counter-voice. Two more lead takes are fanned out from
-the same trained reservoir. graph-v1 samples a 16-qubit graph state (one qubit per sixteenth step,
-neighbours anti-correlated), and its most frequent bitstrings become the drum patterns.
-retrocausal-echo-v1 echoes the melodic stem with taps measured on a scrambled, reversed qubit chain.
-The harmony, form, backbeat and synth voices are written by hand. Every melody note and every kick
-placement comes from a quantum job. A provenance
-card records each step's engine, job id, backend and sha256, so anyone can audit or re-run the chain.
+## Expert #9 (Quantum-native 1): repo of a quantum application that processes media
 
-**Workflow (for #10):** the notebook runs one engine per cell against the live Atlas API. File inputs
-are staged as assets, and each job's output asset is chained straight into the next engine without
-re-uploading. The small client in `gsqs/moth.py` retries `engine_timeout` and dropped connections.
+**Project:** Show Me the Receipt: a Kannaka Radio quantum session
+**Link:** the repo URL above
 
-**Something we found:** at comet-qrng-v1's documented default (12 qubits), real hardware certifies zero
-bytes. The counts-only readout's charge for lost shot order exceeds the entropy, and the engine
-correctly refuses (measured on ibm_fez). 64 qubits fixes it. Both runs, and a simulator control, are
-in the README.
+A pipeline that turns certified quantum randomness into a finished song, video and cover, where every
+step leaves an auditable receipt (engine, job id, backend, sha256).
+- comet-qrng-v1 draws 32 certified bytes on ibm_pittsburgh: Bell S = 2.70 ± 0.02, NIST SP 800-90B
+  entropy report.
+- Those bytes write a D-dorian seed motif.
+- qrc-midi-v1 trains a quantum reservoir on the motif and fans out three lead takes.
+- graph-v1 samples a 16-qubit graph state whose bitstrings place the kicks and set the bass wobble.
+- qrc-audio-v1 re-sequences the vocal hook into drop chops.
+- retrocausal-echo-v1 gives the whole track one measured echo.
+- blur-v1 and telablur-v1 make the cover and the video's ring-by-ring growth.
 
-**Honesty note:** only the randomness step ran on real hardware. The other engines ran in simulation
-(Aer), because their hardware modes need a separate IBM token.
+Engine limits we hit are handled in the client and documented: the 180 s audio cap (split the stem and
+reuse the measured impulse response), per-render peak normalisation (undone by measured dry gain), and
+engine_timeout retries.
 
-**Team:** Nick Flach (kannaka-labs), with 0xSCADA-QE (the constellation's QE agent) building.
+## Expert #10 (Quantum-native 2): notebook of the API workflow
+
+**Link:** `session.ipynb` (base URL + `session.ipynb`)
+
+One engine per cell, executed live against the Atlas API. It stages assets (create, presigned PUT,
+complete), then chains each job's output asset straight into the next engine: certified randomness,
+seed motif, quantum reservoir, quantum blur, render, retrocausal echo, and a provenance card. It
+includes a finding: at comet-qrng-v1's documented default of 12 qubits, real hardware certifies zero
+bytes.
+
+## #2 (Make it audible)
+
+**Audio:** `output/edm/show_me_the_receipt.wav` (2:48)
+**Workflow:** a 140 bpm half-time deep-bass track in D dorian.
+- The lead melodies are three quantum-reservoir takes (qrc-midi-v1).
+- The kick placements and the growl-bass wobble rate come from a 16-qubit graph state (graph-v1).
+- The drop vocals are the hook re-sequenced by a quantum reservoir (qrc-audio-v1).
+- Everything sits in one room: an echo measured by scrambling and reversing a qubit chain
+  (retrocausal-echo-v1).
+- Vocals are ElevenLabs TTS in Kannaka Radio's standing voices. The lyrics describe the same night's
+  research, and every claim is footnoted to a measurement (`lyrics/show_me_the_receipt.md`).
+
+## #6 (Daisy Chain)
+
+**Engines: 8**, each doing a job nothing else in the chain does:
+- comet-qrng-v1: the seed;
+- qrc-midi-v1: three lead takes;
+- blur-midi-v1: the ghost counter-voice;
+- graph-v1: the groove and the wobble;
+- qrc-audio-v1: the vocal chops;
+- retrocausal-echo-v1: the echo, one impulse response re-rendered across stems;
+- blur-v1: the cover and the drop pulses;
+- telablur-v1: the ring-to-ring morphs.
+
+Output assets chain directly into the next engine, without re-uploading.
+
+## #4 (Moving image)
+
+**Video:** `output/video/show_me_the_receipt.mp4` (1280×720, 2:48)
+
+The Heesch leader, the current best answer to "how many rings of copies of itself can a shape wear?"
+(4 rings plus 251/254 of a fifth), is built ring by ring through five telablur-v1 morphs, in time with
+lyrics that describe the search. The build zooms onto a bare cell. The drops pulse between blur-v1
+strengths on the beat.
+
+## #1 (One image, one engine)
+
+**Image:** `output/art/cover.png`
+**Engine and parameters:** blur-v1, `strength 0.55, style "rx", size 1024`, with a mask
+(`output/art/mask_outer.png`) covering rings 3–5 only. The source is our render of the Heesch leader.
+The quantum blur scatters only the unsettled frontier into interference echoes, while the rings that
+are proven stay sharp. The three cells the fifth ring could not cover glow red.
+
+## Guest: FQxI Challenge (#11)
+
+**Video:** `output/explainer/how_do_you_know_a_random_number_is_quantum.mp4` (72 s, narrated)
+
+"How do you know a random number is really quantum?" You can't tell by looking at it, so you test the
+machine. Kannaka asks and 0xSCADA-QE answers, over charts of our own three comet-qrng-v1 runs:
+- the Bell test (S = 2.70 on IBM hardware against a classical limit of 2);
+- a randomness budget showing why 12 qubits certified zero bytes (601 bits short of the 43,250-bit
+  charge for lost shot order), while 64 qubits certified 32 bytes with every assumption written down.
+
+**Honesty note (applies to every entry):**
+- Only the randomness ran on real quantum hardware.
+- The other engines ran in simulation (Aer or statevector), because their hardware modes need a
+  separate IBM token.
+- Written by hand: harmony, form, backbeat, synth voices and the mix.
+- Every melody note, kick placement, wobble rate, vocal chop and echo tap comes from a quantum job.
