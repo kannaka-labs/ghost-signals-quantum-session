@@ -108,10 +108,11 @@ every copy touching what's built, no trapped holes. Your score is Yukon's own (c
 fraction of the next ring). Three shapes that tile the plane lead up to the real record holder, a
 15-cell polyhex at 4 + 251/254 = 4.9882, and pressing H ghosts in its record corona ring by ring. We
 replayed the record through the game's rules: rings 1–4 close cleanly and ring 5 scores 251/254.
-- **Tessa (tessa-image-v1)** paints the tile sprites. Each colour is encoded on a qubit's sphere, with
-  entangling distortion gates, and read back through a circuit on IBM hardware (job 404cf1aa). At the
-  time of writing that job was still in IBM's queue, and the game shows the pre-quantum sprites until
-  its result is committed.
+- **Tessa (tessa-image-v1)** textures the tile sprites. Each colour is encoded as a point on a qubit's
+  sphere and read back through a circuit under the ibm_fez noise model (job 90c0ae67). The game blends
+  that round trip 45% over the original, so the quantum noise shows as texture and the colours keep
+  their meaning. A run on real IBM hardware with strong entangling distortion (0.9, job 404cf1aa) came
+  back as pure noise. That result is kept as `docs/game/tiles_tessa_hardware_distortion.png`.
 - **Quantum bag** mode deals each piece's orientation from 32 certified random bytes measured on
   ibm_pittsburgh (comet-qrng-v1). No rotating: you place what the qubits give you.
 - The soundtrack is the song.

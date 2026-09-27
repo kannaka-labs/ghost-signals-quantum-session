@@ -1,0 +1,11 @@
+{
+ "engine": "tessa-image-v1",
+ "job_id": "90c0ae67-4d5d-4566-86c1-5a4e6ae98f25",
+ "params": {
+  "distortion": 0.0,
+  "machine": "fake_fez",
+  "shots": 4096,
+  "separate_rgb": true
+ },
+ "source": "tiles_classical.png"
+}

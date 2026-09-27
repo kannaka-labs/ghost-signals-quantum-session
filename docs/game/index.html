@@ -67,8 +67,9 @@
   <p><b>Quantum bag</b> (<kbd>Q</kbd>): the piece you get next is dealt by 32 certified random bytes measured on IBM's
     <b>ibm_pittsburgh</b> quantum computer (Bell S = 2.70, beyond the classical limit of 2). No rotating or flipping:
     place what the qubits give you.</p>
-  <p>The tiles are painted by Moth's <b>Tessa</b> engine: each colour becomes a point on a qubit's sphere and is
-    read back through a quantum circuit. Controls: move to aim, click or tap to place, <kbd>R</kbd> rotate, <kbd>F</kbd> flip,
+  <p>The tiles are textured by Moth's <b>Tessa</b> engine: each colour becomes a point on a qubit's sphere and is
+    read back through a quantum circuit under the noise model of IBM's <b>ibm_fez</b> chip, blended with the original so
+    the colours keep their meaning. (A run on real hardware with strong entangling gates came back as pure noise.) Controls: move to aim, click or tap to place, <kbd>R</kbd> rotate, <kbd>F</kbd> flip,
     <kbd>Z</kbd> undo.</p>
   <form method="dialog"><button>play</button></form>
 </dialog>
