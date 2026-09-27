@@ -1,0 +1,148 @@
+{
+ "title": "Ghost Signals quantum session",
+ "made_at": "2026-09-27T02:37:36.298324+00:00",
+ "steps": [
+  {
+   "step": "certified randomness",
+   "engine": "comet-qrng-v1",
+   "job_id": "2f709282-aa7e-42de-a506-814a92f789c8",
+   "backend": "ibm_pittsburgh",
+   "grade": "hardware-accounted",
+   "h_bit": 0.7918,
+   "budget_bits": 164325,
+   "bell_S": 2.696,
+   "bell_sigma": 0.023,
+   "pulse_hash": "e371dd18da5c884535c5c6fbb6b0801db221af4cd5cfe6669b517e49313c0d8d",
+   "random_hex": "dbd8c1cbe218877d6c77b4ab6746a7c02f7956e0b60220cb2825c1c77ce1e9dc"
+  },
+  {
+   "step": "seed motif (local)",
+   "file": "01_seed.mid",
+   "sha256": "376dbd814339ac8e11de7d6826d2f1a25838fca6324b3401f314e813867dc551",
+   "notes": 12,
+   "table": [
+    {
+     "i": 0,
+     "byte": 219,
+     "pitch": 67,
+     "beats": 1.5
+    },
+    {
+     "i": 1,
+     "byte": 216,
+     "pitch": 62,
+     "beats": 1.5
+    },
+    {
+     "i": 2,
+     "byte": 193,
+     "pitch": 64,
+     "beats": 0.5
+    },
+    {
+     "i": 3,
+     "byte": 203,
+     "pitch": 67,
+     "beats": 1.0
+    },
+    {
+     "i": 4,
+     "byte": 226,
+     "pitch": 53,
+     "beats": 0.5
+    },
+    {
+     "i": 5,
+     "byte": 24,
+     "pitch": 62,
+     "beats": 1.5
+    },
+    {
+     "i": 6,
+     "byte": 135,
+     "rest": 0.5
+    },
+    {
+     "i": 7,
+     "byte": 125,
+     "pitch": 59,
+     "beats": 1.5
+    },
+    {
+     "i": 8,
+     "byte": 108,
+     "pitch": 57,
+     "beats": 1.0
+    },
+    {
+     "i": 9,
+     "byte": 119,
+     "rest": 1.0
+    },
+    {
+     "i": 10,
+     "byte": 180,
+     "pitch": 57,
+     "beats": 1.0
+    },
+    {
+     "i": 11,
+     "byte": 171,
+     "pitch": 55,
+     "beats": 1.0
+    },
+    {
+     "i": 12,
+     "byte": 103,
+     "rest": 0.5
+    },
+    {
+     "i": 13,
+     "byte": 70,
+     "pitch": 72,
+     "beats": 0.5
+    },
+    {
+     "i": 14,
+     "byte": 167,
+     "rest": 0.5
+    },
+    {
+     "i": 15,
+     "byte": 192,
+     "pitch": 62,
+     "beats": 0.5
+    }
+   ]
+  },
+  {
+   "step": "quantum reservoir arrangement",
+   "engine": "qrc-midi-v1",
+   "job_id": "561ee039-94b7-4872-93a7-8400ee8846c6",
+   "file": "02_arrangement.mid",
+   "sha256": "c40fde961d72d19d0ccb106af0ac69995df858d841f31d25a85e5b552b7fb84d",
+   "notes": 32
+  },
+  {
+   "step": "quantum blur counter-voice",
+   "engine": "blur-midi-v1",
+   "job_id": "89aae5c7-67a7-40dd-b8bf-1053d82d6694",
+   "file": "03_ghost.mid",
+   "sha256": "d1007456d50202bac1ca06e0c8a45e49784da0107b9909ce82daf4bef369fae5",
+   "notes": 186
+  },
+  {
+   "step": "render (local additive synth)",
+   "file": "04_dry.wav",
+   "sha256": "474adb4c4398ad1e2597905a1cd89c00e3bfb1cd7b1545808ae4007e56ea5247"
+  },
+  {
+   "step": "retrocausal echo",
+   "engine": "retrocausal-echo-v1",
+   "job_id": "876a57f9-2266-4050-938c-f12cac620424",
+   "file": "05_ghost_signals_session.wav",
+   "sha256": "0f45abd8cf3c6c40ac0c28e80890cc7b7e39c8660bfa37c05770ceae6b540c13",
+   "taps_file": "05_echo_taps.json"
+  }
+ ]
+}
