@@ -60,7 +60,14 @@ def main():
     ap.add_argument("--count-pockets", action="store_true",
                     help="U bounds the OFFICIAL defect |uncovered R + pocket cells| instead of forbidding extra pockets")
     ap.add_argument("--out", type=Path, default=None)
+    ap.add_argument("--export-cnf", type=Path, default=None,
+                    help="write the solver's FINAL static clause set (base + every lazy cut + totalizer extensions + "
+                         "final assumptions as unit clauses) as DIMACS, plus <path>.map.json (and <path>.model if SAT)")
+    ap.add_argument("--oracle", type=Path, default=None,
+                    help="with --export-cnf: solve every iteration with this stock solver binary (cadical/kissat, "
+                         "exit 10/20, `v` lines) from scratch instead of incremental pysat")
     a = ap.parse_args()
+    assert not a.oracle or a.export_cnf, "--oracle needs --export-cnf"
     U, RMIN = (int(v) for v in a.decide.split("/"))
 
     text = a.submission.read_text(encoding="utf-8")
@@ -118,6 +125,58 @@ def main():
             var[(l, i)] = top
     s = Solver(name="cadical153")                   # clauses stream straight in: no second copy in Python
     nclauses = 0
+    # DRAT export hook: tee EVERY clause the solver receives (including hole/pocket cuts, which bypass add()) to a
+    # body file, so the export is the solver's own clause set, not a re-implementation.
+    exp = None
+    if a.export_cnf:
+        exp = {"body": open(str(a.export_cnf) + ".body", "w", buffering=1 << 22), "n": 0, "maxv": 0}
+        _orig_add_clause = s.add_clause
+
+        def _tee_add_clause(cl, no_return=True):
+            cl = [int(x) for x in cl]
+            exp["body"].write(" ".join(map(str, cl)) + " 0\n")
+            exp["n"] += 1
+            if cl:
+                exp["maxv"] = max(exp["maxv"], max(abs(x) for x in cl))
+            return _orig_add_clause(cl, no_return)
+        s.add_clause = _tee_add_clause
+
+    def export(assumptions, status, model=None):
+        """Close the body and write DIMACS = header + body + one unit clause per final assumption."""
+        import hashlib
+        import json
+        import os
+        body = str(a.export_cnf) + ".body"
+        exp["body"].close()
+        units = [int(x) for x in assumptions]
+        nv = max([exp["maxv"], top] + [abs(x) for x in units])
+        with open(a.export_cnf, "wb") as out:
+            out.write(f"c joint_multi export: {a.submission.name} --free-from {f} --decide {U}/{RMIN}"
+                      f"{' --count-pockets' if a.count_pockets else ''}{' --r-only' if a.r_only else ''}"
+                      f" status={status} solver_clauses={exp['n']} assumption_units={len(units)}\n".encode())
+            out.write(f"p cnf {nv} {exp['n'] + len(units)}\n".encode())
+            with open(body, "rb") as b:
+                while True:
+                    chunk = b.read(1 << 24)
+                    if not chunk:
+                        break
+                    out.write(chunk)
+            for x in units:
+                out.write(f"{x} 0\n".encode())
+        os.remove(body)
+        zmap = {str(var[(l, i)]): [l, cand[l][i][0].as_text()] for (l, i) in var}
+        meta = {"submission": str(a.submission.resolve()), "free_from": f, "k": k, "U": U, "RMIN": RMIN,
+                "count_pockets": a.count_pockets, "r_only": a.r_only, "status": status, "nvars": nv,
+                "solver_clauses": exp["n"], "assumptions": units, "cuts": cuts, "z": zmap}
+        Path(str(a.export_cnf) + ".map.json").write_text(json.dumps(meta), encoding="utf-8")
+        if model is not None:
+            Path(str(a.export_cnf) + ".model").write_text(" ".join(map(str, model)) + " 0\n", encoding="utf-8")
+        h = hashlib.sha256()
+        with open(a.export_cnf, "rb") as fh:
+            for chunk in iter(lambda: fh.read(1 << 24), b""):
+                h.update(chunk)
+        print(f"EXPORT {a.export_cnf}: p cnf {nv} {exp['n'] + len(units)} ({exp['n']} solver clauses + "
+              f"{len(units)} assumption units) sha256 {h.hexdigest()}", flush=True)
 
     def add(cl):
         nonlocal nclauses
@@ -205,16 +264,54 @@ def main():
             out.append(comp)
         return out
 
+    def oracle_solve(assumptions):
+        """--oracle: answer this iteration with a STOCK solver binary run from scratch on the current static CNF
+        (every clause so far + assumptions as units) instead of pysat. The lazy-cut code is unchanged."""
+        import subprocess
+        import tempfile
+        exp["body"].flush()
+        units = [int(x) for x in assumptions]
+        nv = max([exp["maxv"], top] + [abs(x) for x in units])
+        with tempfile.TemporaryFile() as outf:
+            ts = time.time()
+            p = subprocess.Popen([str(a.oracle), "-q"], stdin=subprocess.PIPE, stdout=outf)
+            p.stdin.write(f"p cnf {nv} {exp['n'] + len(units)}\n".encode())
+            with open(str(a.export_cnf) + ".body", "rb") as b:
+                while True:
+                    chunk = b.read(1 << 24)
+                    if not chunk:
+                        break
+                    p.stdin.write(chunk)
+            for x in units:
+                p.stdin.write(f"{x} 0\n".encode())
+            p.stdin.close()
+            rc = p.wait()
+            outf.seek(0)
+            lines = outf.read().decode().splitlines()
+        print(f"  oracle {a.oracle.name}: rc={rc} on {exp['n'] + len(units)} clauses ({time.time() - ts:.0f}s)",
+              flush=True)
+        if rc == 20:
+            return None
+        if rc != 10:
+            raise SystemExit(f"oracle failed rc={rc}")
+        return [int(x) for ln in lines if ln.startswith("v") for x in ln.split()[1:] if x != "0"]
+
     t0, cuts = time.time(), 0
     with s:
         while cuts <= a.max_cuts:
-            if not s.solve(assumptions=assume):
+            if a.oracle:
+                model_now = oracle_solve(assume)
+            else:
+                model_now = s.get_model() if s.solve(assumptions=assume) else None
+            if model_now is None:
                 what = (f"OFFICIAL defect (uncovered + pocket cells) <= {U}" if a.count_pockets
                         else f"uncovered <= {U} without extra pockets")
                 print(f"\nUNSAT after {cuts} sound cuts ({time.time() - t0:.0f}s): with rings 0..{f - 1} fixed, no "
                       f"choice of rings {f}..{k + 1} has {what} over |R| >= {RMIN}.")
+                if exp:
+                    export(assume, "UNSAT")
                 return 1
-            pos = {x for x in s.get_model() if x > 0}
+            pos = {x for x in model_now if x > 0}
             chosen = {l: [i for i in range(len(cand[l])) if var[(l, i)] in pos] for l in levels}
             added, P = 0, set(P0)
             for l in range(f, k + 1):               # holes level by level
@@ -286,6 +383,8 @@ def main():
             print(f"\nSAT after {cuts} cuts ({time.time() - t0:.0f}s). OFFICIAL: coronas={cor.max_level}, "
                   f"defect_hc={res.defect_hc} (hh={res.defect_hh}, pockets={res.pocket_cells}) of {res.required} "
                   f"-> score {score:.6f}")
+            if exp:
+                export(assume, "SAT", model=model_now)
             if a.out:
                 hdr = text.splitlines()[0]
                 body = [hdr, f"~ {k} {k} 1", str(len(placements))]
