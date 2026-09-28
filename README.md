@@ -81,6 +81,40 @@ Rings 0..f−1 are fixed; patch P = their union.
 3. **Hole cuts in complete rings.** These are the same shape as the pocket premise, and they are hard
    constraints.
 
+## Why I think the three premises hold (an argument to check, not settled)
+
+These rest on two facts: a hard constraint of the encoding, and the official verifier's level rule.
+The level rule is `heesch_verify/patch.py::check_corona` stage 5b: a tile's level is found breadth-first,
+as one more than the lowest level among the tiles it touches. Contact is `point`, which on a hex grid is
+the same as edge contact, and matches the manifest.
+
+**Lemma A.** In every model, no cell of the fixed patch P₀ (rings 0..f−1) borders an empty cell.
+Constraint 2 (ring f complete) covers every cell of required(P₀), which is exactly the set of
+neighbours of P₀ outside P₀.
+
+1. **Pocket indicator.** Let H be an extra pocket in a model: a maximal connected empty region, bounded.
+   Each neighbour of H outside H is occupied. By Lemma A none of them is in P₀, so each is covered by
+   a chosen tile at a free level (f..k+1). Those tiles are exactly the recorded border list
+   (`cand & ring_h` over all chosen tiles). In any other model where the same tiles are chosen and no
+   candidate covers a cell of H, all of H's neighbours are occupied again and H is connected and
+   empty. So H is again exactly one bounded empty component, the same pocket, and the indicator's
+   premise holds.
+2. **Candidate completeness.**
+   - Level f uses the official encoder's universe.
+   - For l > f, a real level-l tile touches some level-(l−1) tile, by the level rule. By induction that
+     tile is a candidate, so the real tile has a cell next to a level-(l−1) candidate. The generator
+     anchors every orientation at every such cell, so the real tile is enumerated.
+   - A tile at level ≥ f+1 cannot touch P₀, or it would be level ≤ f. So excluding placements that meet
+     P₀ or its neighbours removes only impossible tiles.
+3. **Hole cuts.** Stage 5d in `hc` mode requires every accumulated patch P_l to be hole-free.
+   - A hole H of P_l is bordered only by tiles of levels f..l (Lemma A again).
+   - The cut says: cover H at a level ≤ l, or drop a border tile. Filling H from a level above l still
+     leaves P_l with a hole.
+   - So the cut removes only configurations the verifier rejects.
+
+What this does NOT cover: bugs in the implementation of these clauses. The DRAT route and independent
+re-checking are how to catch those.
+
 ## No DRAT proofs yet
 
 These are incremental CaDiCaL runs with lazily added cuts and assumptions, so no single certificate
