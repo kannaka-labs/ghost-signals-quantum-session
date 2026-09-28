@@ -1,0 +1,29 @@
+== host jupyter-POD nproc=16 mem=62G 2026-09-26T22:52:21Z
+---------------------------------------
+* [0;35mWelcome to the qBraid Lab Terminal![0m *
+---------------------------------------
+
+        ____            _     _  
+   __ _| __ ) _ __ __ _(_) __| | 
+  / _  |  _ \|  __/ _  | |/ _  | 
+ | (_| | |_) | | | (_| | | (_| | 
+  \__  |____/|_|  \__ _|_|\__ _| 
+     |_|                         
+
+
+Use `qbraid -h` to see available CLI commands.
+
+947f057 Merge pull request #90 from Layr-Labs/feat/render-svg-metric
+deps ok
+===== CONTROL f=3 3/254 (must be SAT)
+candidates per level: {3: 1367, 4: 10418, 5: 24642}
+vars 625939, clauses 5906404; DECIDE uncovered <= 3, |R| >= 254
+
+SAT after 44 cuts (45s). OFFICIAL: coronas=4, defect_hc=3 (hh=3, pockets=0) of 254 -> score 4.988189
+wrote /home/jovyan/qe_jobs/heesch-multi/control_f3.heesch
+===== REAL f=3 3/255
+candidates per level: {3: 1367, 4: 10418, 5: 24642}
+vars 625939, clauses 5906404; DECIDE uncovered <= 3, |R| >= 255
+
+UNSAT after 39 sound cuts (58s): with rings 0..2 fixed, no choice of rings 3..5 has uncovered <= 3 over |R| >= 255 without extra pockets.
+== job exit rc=1 after 129s

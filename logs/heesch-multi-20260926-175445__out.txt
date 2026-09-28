@@ -1,0 +1,9 @@
+candidates per level: {3: 1367, 4: 10418, 5: 24642}
+vars 625939, clauses 5906404; DECIDE uncovered <= 3, |R| >= 254
+
+SAT after 44 cuts (45s). OFFICIAL: coronas=4, defect_hc=3 (hh=3, pockets=0) of 254 -> score 4.988189
+wrote /home/jovyan/qe_jobs/heesch-multi/control_f3.heesch
+candidates per level: {3: 1367, 4: 10418, 5: 24642}
+vars 625939, clauses 5906404; DECIDE uncovered <= 3, |R| >= 255
+
+UNSAT after 39 sound cuts (58s): with rings 0..2 fixed, no choice of rings 3..5 has uncovered <= 3 over |R| >= 255 without extra pockets.

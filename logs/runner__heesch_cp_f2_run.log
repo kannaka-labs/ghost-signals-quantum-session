@@ -1,0 +1,19 @@
+[02:22:15] before: credits=464.0020 plan_hours=307.829 autoSwitchToCredits=False
+[02:22:16] start_server(8vCPU_25GB): starting
+[02:22:50] uploaded 8901 bytes, job launched; polling
+   | == host jupyter-POD nproc=16 mem=62G 2026-09-27T07:22:44Z
+   | ---------------------------------------
+   | * [0;35mWelcome to the qBraid Lab Terminal![0m *
+   | ---------------------------------------
+   | 
+   |         ____            _     _  
+   |    __ _| __ ) _ __ __ _(_) __| | 
+   |   / _  |  _ \|  __/ _  | |/ _  | 
+   |  | (_| | |_) | | | (_| | | (_| | 
+   |   \__  |____/|_|  \__ _|_|\__ _| 
+   |      |_|                         
+   | 
+   | 
+   | Use `qbraid -h` to see available CLI commands.
+   | 
+   | 07:25:17 D<=2 any R: UNSAT after 12 sound cuts (133s): with rings 0..1 fixed, no choice of rings 2..5 has OFFICIAL defect (uncovered + pocket cells) <= 2 over |R| >= 1.

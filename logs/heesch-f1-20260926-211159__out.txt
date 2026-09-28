@@ -1,0 +1,72 @@
+01:08:33 [real] candidates per level: {1: 472, 2: 5376, 3: 14712, 4: 28008, 5: 45264} peak RSS 0.2 GB
+01:08:33 [control] candidates per level: {1: 472, 2: 5376, 3: 14712, 4: 28008, 5: 45264} peak RSS 0.2 GB
+01:09:12 [real] vars 1582268, clauses 17473115, peak RSS 5.2 GB; DECIDE uncovered <= 3, |R| >= 255
+01:09:13 [control] vars 1582268, clauses 17473115, peak RSS 5.2 GB; DECIDE uncovered <= 3, |R| >= 254
+01:09:30 [mem] 17182 MB used
+01:10:30 [mem] 21733 MB used
+01:11:30 [mem] 21587 MB used
+01:12:30 [mem] 19921 MB used
+01:13:30 [mem] 18315 MB used
+01:14:30 [mem] 20178 MB used
+01:15:30 [mem] 20385 MB used
+01:16:30 [mem] 20064 MB used
+01:17:30 [mem] 20072 MB used
+01:18:30 [mem] 21677 MB used
+01:19:30 [mem] 20213 MB used
+01:20:30 [mem] 19980 MB used
+01:21:30 [mem] 21528 MB used
+01:22:30 [mem] 21588 MB used
+01:23:30 [mem] 19970 MB used
+01:24:30 [mem] 19205 MB used
+01:25:30 [mem] 20370 MB used
+01:26:30 [mem] 20007 MB used
+01:27:30 [mem] 19870 MB used
+01:28:30 [mem] 19916 MB used
+01:29:30 [mem] 19878 MB used
+01:30:30 [mem] 19875 MB used
+01:31:30 [mem] 20316 MB used
+01:32:30 [mem] 19867 MB used
+01:33:30 [mem] 20132 MB used
+01:34:30 [mem] 21359 MB used
+01:35:30 [mem] 18309 MB used
+01:36:30 [mem] 19810 MB used
+01:37:30 [mem] 19866 MB used
+01:38:30 [mem] 19765 MB used
+01:39:30 [mem] 20005 MB used
+01:40:30 [mem] 20022 MB used
+01:41:30 [mem] 19861 MB used
+01:42:30 [mem] 21345 MB used
+01:43:30 [mem] 18414 MB used
+01:44:30 [mem] 21401 MB used
+01:45:30 [mem] 18426 MB used
+01:46:30 [mem] 21309 MB used
+01:47:30 [mem] 19826 MB used
+01:48:30 [mem] 18409 MB used
+01:49:30 [mem] 19889 MB used
+01:50:30 [mem] 21393 MB used
+01:51:30 [mem] 21345 MB used
+01:52:30 [mem] 18414 MB used
+01:53:30 [mem] 19817 MB used
+01:54:30 [mem] 19810 MB used
+01:55:30 [mem] 19753 MB used
+01:56:30 [mem] 18401 MB used
+01:57:30 [mem] 21147 MB used
+01:58:30 [mem] 18389 MB used
+01:59:30 [mem] 19761 MB used
+02:00:30 [mem] 18406 MB used
+02:01:30 [mem] 19800 MB used
+02:02:30 [mem] 19794 MB used
+02:03:30 [mem] 18420 MB used
+02:04:30 [mem] 18428 MB used
+02:05:30 [mem] 18417 MB used
+02:06:08 [control] 
+02:06:08 [control] SAT after 46 cuts (3415s). OFFICIAL: coronas=4, defect_hc=3 (hh=3, pockets=0) of 254 -> score 4.988189
+02:06:08 [control] wrote /home/jovyan/qe_jobs/heesch-f1/control_f1.heesch
+02:06:30 [mem] 10688 MB used
+02:07:30 [mem] 10687 MB used
+02:08:30 [mem] 10774 MB used
+02:09:30 [mem] 10750 MB used
+02:10:30 [mem] 10746 MB used
+02:11:30 [mem] 10764 MB used
+02:11:56 [real] 
+02:11:56 [real] UNSAT after 50 sound cuts (3764s): with rings 0..0 fixed, no choice of rings 1..5 has uncovered <= 3 over |R| >= 255 without extra pockets.

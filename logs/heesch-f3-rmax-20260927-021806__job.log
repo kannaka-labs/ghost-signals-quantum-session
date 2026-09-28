@@ -1,0 +1,21 @@
+== host jupyter-POD nproc=16 mem=62G 2026-09-27T06:59:08Z
+---------------------------------------
+* [0;35mWelcome to the qBraid Lab Terminal![0m *
+---------------------------------------
+
+        ____            _     _  
+   __ _| __ ) _ __ __ _(_) __| | 
+  / _  |  _ \|  __/ _  | |/ _  | 
+ | (_| | |_) | | | (_| | | (_| | 
+  \__  |____/|_|  \__ _|_|\__ _| 
+     |_|                         
+
+
+Use `qbraid -h` to see available CLI commands.
+
+07:03:37 R >= 360 UNSAT
+07:16:26 RMAX = 359
+07:16:26 D=4 over |R| >= 339:
+UNSAT after 0 sound cuts (74s): with rings 0..2 fixed, no choice of rings 3..5 has OFFICIAL defect (uncovered + pocket cells) <= 4 over |R| >= 339.
+07:17:49 D=5 needs |R| >= 424 > RMAX: impossible, done
+== job exit rc=0 after 1121s

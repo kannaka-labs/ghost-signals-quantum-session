@@ -1,0 +1,4 @@
+candidates per level: {3: 1367, 4: 10418, 5: 24642} peak RSS 0.1 GB
+vars 611025, clauses 4024211, peak RSS 1.1 GB; DECIDE uncovered <= 4, |R| >= 339
+
+UNSAT after 0 sound cuts (74s): with rings 0..2 fixed, no choice of rings 3..5 has OFFICIAL defect (uncovered + pocket cells) <= 4 over |R| >= 339.

@@ -1,0 +1,5 @@
+07:03:37 R >= 360 UNSAT
+07:16:26 RMAX = 359
+07:16:26 D=4 over |R| >= 339:
+UNSAT after 0 sound cuts (74s): with rings 0..2 fixed, no choice of rings 3..5 has OFFICIAL defect (uncovered + pocket cells) <= 4 over |R| >= 339.
+07:17:49 D=5 needs |R| >= 424 > RMAX: impossible, done

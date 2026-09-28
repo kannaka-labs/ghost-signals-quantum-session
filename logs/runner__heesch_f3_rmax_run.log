@@ -1,0 +1,28 @@
+[01:59:06] before: credits=464.0020 plan_hours=310.973 autoSwitchToCredits=False
+[01:59:07] reusing running Lab server (profile=8vCPU_25GB)
+[01:59:14] uploaded 8796 bytes, job launched; polling
+   | == host jupyter-POD nproc=16 mem=62G 2026-09-27T06:59:08Z
+   | ---------------------------------------
+   | * [0;35mWelcome to the qBraid Lab Terminal![0m *
+   | ---------------------------------------
+   | 
+   |         ____            _     _  
+   |    __ _| __ ) _ __ __ _(_) __| | 
+   |   / _  |  _ \|  __/ _  | |/ _  | 
+   |  | (_| | |_) | | | (_| | | (_| | 
+   |   \__  |____/|_|  \__ _|_|\__ _| 
+   |      |_|                         
+   | 
+   | 
+   | Use `qbraid -h` to see available CLI commands.
+   | 
+   | 07:03:37 R >= 360 UNSAT
+   | 07:16:26 RMAX = 359
+   | 07:16:26 D=4 over |R| >= 339:
+   | UNSAT after 0 sound cuts (74s): with rings 0..2 fixed, no choice of rings 3..5 has OFFICIAL defect (uncovered + pocket cells) <= 4 over |R| >= 339.
+   | 07:17:49 D=5 needs |R| >= 424 > RMAX: impossible, done
+   | == job exit rc=0 after 1121s
+[02:18:06] fetched out.txt (277 chars)
+[02:18:06] job status 0; results in C:\Users\nflach\qe-work\qbraid_runs\heesch-f3-rmax-20260927-021806
+[02:18:06] server was already running; left running
+[02:18:12] after: credits=464.0020 (delta +0.0000), plan_hours=308.306; wall 1148s

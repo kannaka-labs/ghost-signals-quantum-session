@@ -1,0 +1,92 @@
+[19:07:49] before: credits=464.0020 plan_hours=360.463 autoSwitchToCredits=False
+[19:07:51] start_server(8vCPU_25GB): starting
+[19:08:25] uploaded 7774 bytes, job launched; polling
+   | == host jupyter-POD nproc=16 mem=62G 2026-09-27T00:08:19Z
+   | ---------------------------------------
+   | * [0;35mWelcome to the qBraid Lab Terminal![0m *
+   | ---------------------------------------
+   | 
+   |         ____            _     _  
+   |    __ _| __ ) _ __ __ _(_) __| | 
+   |   / _  |  _ \|  __/ _  | |/ _  | 
+   |  | (_| | |_) | | | (_| | | (_| | 
+   |   \__  |____/|_|  \__ _|_|\__ _| 
+   |      |_|                         
+   | 
+   | 
+   | Use `qbraid -h` to see available CLI commands.
+   | 
+   | 00:08:22 [control] candidates per level: {1: 472, 2: 5376, 3: 14712, 4: 28008, 5: 45264} peak RSS 0.2 GB
+   | 00:08:22 [real] candidates per level: {1: 472, 2: 5376, 3: 14712, 4: 28008, 5: 45264} peak RSS 0.2 GB
+   | 00:09:01 [control] vars 1582268, clauses 17473115, peak RSS 5.2 GB; DECIDE uncovered <= 3, |R| >= 254
+   | 00:09:01 [real] vars 1582268, clauses 17473115, peak RSS 5.2 GB; DECIDE uncovered <= 3, |R| >= 255
+   | 00:09:19 [mem] 17218 MB used
+   | 00:10:19 [mem] 21740 MB used
+   | 00:11:19 [mem] 19627 MB used
+   | 00:12:19 [mem] 19905 MB used
+   | 00:13:19 [mem] 21780 MB used
+   | 00:14:19 [mem] 20357 MB used
+   | 00:15:19 [mem] 20396 MB used
+   | 00:16:19 [mem] 19996 MB used
+   | 00:17:19 [mem] 20032 MB used
+   | 00:18:19 [mem] 19981 MB used
+   | 00:19:19 [mem] 20289 MB used
+   | 00:20:19 [mem] 21661 MB used
+   | 00:21:19 [mem] 19020 MB used
+   | 00:22:19 [mem] 18343 MB used
+   | 00:23:19 [mem] 21945 MB used
+   | 00:24:19 [mem] 19869 MB used
+   | 00:25:19 [mem] 19250 MB used
+   | 00:26:19 [mem] 21521 MB used
+   | 00:27:19 [mem] 21404 MB used
+   | 00:28:19 [mem] 18293 MB used
+   | 00:29:19 [mem] 18246 MB used
+   | 00:30:19 [mem] 18695 MB used
+   | 00:31:19 [mem] 19820 MB used
+   | 00:32:19 [mem] 21326 MB used
+[19:33:27] poll hiccup: JSONDecodeError (1)
+[19:33:42] poll hiccup: JSONDecodeError (2)
+[19:33:58] poll hiccup: JSONDecodeError (3)
+[19:34:13] poll hiccup: JSONDecodeError (4)
+[19:34:28] poll hiccup: JSONDecodeError (5)
+[19:34:45] poll hiccup: JSONDecodeError (6)
+[19:35:00] poll hiccup: JSONDecodeError (7)
+[19:35:16] poll hiccup: JSONDecodeError (8)
+[19:35:17] Lab server is GONE (culled or crashed); giving up instead of polling a dead server
+[19:35:18] stop_server: stopped
+[19:35:23] after: credits=464.0020 (delta +0.0000), plan_hours=357.105; wall 1655s
+python.exe : Traceback (most recent call last):
+At line:17 char:1
++ & "$env:USERPROFILE\qe-work\kc-venv\Scripts\python.exe" -u "$env:USER ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "C:\Users\nflach\qe-work\kc-venv\Lib\site-packages\requests\models.py", line 1116, in json
+    return complexjson.loads(self.text, **kwargs)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\json\__init__.py", line 352, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python314\Lib\json\decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\json\decoder.py", line 363, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\nflach\qe-work\qbraid_lab_job.py", line 174, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Users\nflach\qe-work\qbraid_lab_job.py", line 146, in main
+    (out / "job.log").write_text(lab.get_text(f"{jd}/job.log") or "", encoding="utf-8")
+                                 ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\nflach\qe-work\qbraid_lab_bench.py", line 124, in get_text
+    return r.json().get("content")
+           ~~~~~~^^
+  File "C:\Users\nflach\qe-work\kc-venv\Lib\site-packages\requests\models.py", line 1120, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)

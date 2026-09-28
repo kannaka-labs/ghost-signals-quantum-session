@@ -1,0 +1,29 @@
+[02:18:36] before: credits=464.0020 plan_hours=308.306 autoSwitchToCredits=False
+[02:18:37] reusing running Lab server (profile=8vCPU_25GB)
+[02:18:49] uploaded 8330 bytes, job launched; polling
+   | == host jupyter-POD nproc=16 mem=62G 2026-09-27T07:18:42Z
+   | ---------------------------------------
+   | * [0;35mWelcome to the qBraid Lab Terminal![0m *
+   | ---------------------------------------
+   | 
+   |         ____            _     _  
+   |    __ _| __ ) _ __ __ _(_) __| | 
+   |   / _  |  _ \|  __/ _  | |/ _  | 
+   |  | (_| | |_) | | | (_| | | (_| | 
+   |   \__  |____/|_|  \__ _|_|\__ _| 
+   |      |_|                         
+   | 
+   | 
+   | Use `qbraid -h` to see available CLI commands.
+   | 
+[02:20:35] poll hiccup: ReadTimeout (1)
+   | candidates per level: {3: 1367, 4: 10418, 5: 24642} peak RSS 0.1 GB
+   | vars 611025, clauses 4024211, peak RSS 1.1 GB; DECIDE uncovered <= 4, |R| >= 339
+   | 
+   | UNSAT after 0 sound cuts (74s): with rings 0..2 fixed, no choice of rings 3..5 has OFFICIAL defect (uncovered + pocket cells) <= 4 over |R| >= 339.
+   | == job exit rc=1 after 83s
+[02:20:52] fetched out.txt (298 chars)
+[02:20:52] not found: beat_D4.heesch
+[02:20:52] job status 1; results in C:\Users\nflach\qe-work\qbraid_runs\heesch-f3-d4-20260927-022052
+[02:21:15] stop_server: stopping
+[02:21:20] after: credits=464.0020 (delta +0.0000), plan_hours=307.829; wall 165s

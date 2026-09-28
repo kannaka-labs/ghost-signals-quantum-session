@@ -1,0 +1,26 @@
+== host jupyter-POD nproc=16 mem=62G 2026-09-26T22:55:51Z
+---------------------------------------
+* [0;35mWelcome to the qBraid Lab Terminal![0m *
+---------------------------------------
+
+        ____            _     _  
+   __ _| __ ) _ __ __ _(_) __| | 
+  / _  |  _ \|  __/ _  | |/ _  | 
+ | (_| | |_) | | | (_| | | (_| | 
+  \__  |____/|_|  \__ _|_|\__ _| 
+     |_|                         
+
+
+Use `qbraid -h` to see available CLI commands.
+
+===== CONTROL f=2 3/254 (must be SAT)
+vars 1076224, clauses 11096986; DECIDE uncovered <= 3, |R| >= 254
+
+SAT after 43 cuts (170s). OFFICIAL: coronas=4, defect_hc=3 (hh=3, pockets=0) of 254 -> score 4.988189
+wrote /home/jovyan/qe_jobs/heesch-multi/control_f2.heesch
+===== REAL f=2 3/255
+candidates per level: {2: 872, 3: 7820, 4: 19516, 5: 35164}
+vars 1076224, clauses 11096986; DECIDE uncovered <= 3, |R| >= 255
+
+UNSAT after 44 sound cuts (216s): with rings 0..1 fixed, no choice of rings 2..5 has uncovered <= 3 over |R| >= 255 without extra pockets.
+===== CONTROL f=1 3/254 (must be SAT)

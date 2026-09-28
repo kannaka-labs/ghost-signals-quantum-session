@@ -1,0 +1,29 @@
+[20:07:43] before: credits=464.0020 plan_hours=357.105 autoSwitchToCredits=False
+[20:07:47] start_server(8vCPU_25GB): starting
+[20:08:35] uploaded 7774 bytes, job launched; polling
+   | == host jupyter-POD nproc=16 mem=62G 2026-09-27T01:08:30Z
+   | ---------------------------------------
+   | * [0;35mWelcome to the qBraid Lab Terminal![0m *
+   | ---------------------------------------
+   | 
+   |         ____            _     _  
+   |    __ _| __ ) _ __ __ _(_) __| | 
+   |   / _  |  _ \|  __/ _  | |/ _  | 
+   |  | (_| | |_) | | | (_| | | (_| | 
+   |   \__  |____/|_|  \__ _|_|\__ _| 
+   |      |_|                         
+   | 
+   | 
+   | Use `qbraid -h` to see available CLI commands.
+   | 
+   | 01:08:33 [real] candidates per level: {1: 472, 2: 5376, 3: 14712, 4: 28008, 5: 45264} peak RSS 0.2 GB
+   | 01:08:33 [control] candidates per level: {1: 472, 2: 5376, 3: 14712, 4: 28008, 5: 45264} peak RSS 0.2 GB
+   | 01:09:12 [real] vars 1582268, clauses 17473115, peak RSS 5.2 GB; DECIDE uncovered <= 3, |R| >= 255
+   | 01:09:13 [control] vars 1582268, clauses 17473115, peak RSS 5.2 GB; DECIDE uncovered <= 3, |R| >= 254
+   | 01:09:30 [mem] 17182 MB used
+   | 01:10:30 [mem] 21733 MB used
+   | 01:11:30 [mem] 21587 MB used
+   | 01:12:30 [mem] 19921 MB used
+   | 01:13:30 [mem] 18315 MB used
+   | 01:14:30 [mem] 20178 MB used
+   | 01:15:30 [mem] 20385 MB used

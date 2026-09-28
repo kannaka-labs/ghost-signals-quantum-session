@@ -1,0 +1,23 @@
+[17:06:43] before: credits=464.0020 plan_hours=298.768 autoSwitchToCredits=False
+[17:06:44] start_server(8vCPU_25GB): starting
+[17:07:18] uploaded 9003 bytes, job launched; polling
+   | == host jupyter-POD nproc=16 mem=62G 2026-09-27T22:07:17Z
+   | ---------------------------------------
+   | * [0;35mWelcome to the qBraid Lab Terminal![0m *
+   | ---------------------------------------
+   | 
+   |         ____            _     _  
+   |    __ _| __ ) _ __ __ _(_) __| | 
+   |   / _  |  _ \|  __/ _  | |/ _  | 
+   |  | (_| | |_) | | | (_| | | (_| | 
+   |   \__  |____/|_|  \__ _|_|\__ _| 
+   |      |_|                         
+   | 
+   | 
+   | Use `qbraid -h` to see available CLI commands.
+   | 
+[17:09:20] poll hiccup: HTTPError (1)
+[17:25:38] poll hiccup: ConnectionError (1)
+[17:31:31] poll hiccup: ConnectionError (2)
+[17:52:02] poll hiccup: ConnectionError (1)
+[18:40:23] poll hiccup: ConnectionError (2)

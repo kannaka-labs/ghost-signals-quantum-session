@@ -1,0 +1,138 @@
+[21:12:57] before: credits=464.0020 plan_hours=348.580 autoSwitchToCredits=False
+[21:12:59] start_server(8vCPU_25GB): starting
+[21:13:38] uploaded 8576 bytes, job launched; polling
+   | == host jupyter-POD nproc=16 mem=62G 2026-09-27T02:13:32Z
+   | ---------------------------------------
+   | * [0;35mWelcome to the qBraid Lab Terminal![0m *
+   | ---------------------------------------
+   | 
+   |         ____            _     _  
+   |    __ _| __ ) _ __ __ _(_) __| | 
+   |   / _  |  _ \|  __/ _  | |/ _  | 
+   |  | (_| | |_) | | | (_| | | (_| | 
+   |   \__  |____/|_|  \__ _|_|\__ _| 
+   |      |_|                         
+   | 
+   | 
+   | Use `qbraid -h` to see available CLI commands.
+   | 
+   | 02:13:35 [r339] candidates per level: {1: 472, 2: 5376, 3: 14712, 4: 28008, 5: 45264} peak RSS 0.2 GB
+   | 02:14:10 [r339] vars 1542762, clauses 11810627, peak RSS 4.1 GB; DECIDE uncovered <= 100000, |R| >= 339
+   | Terminated
+   | 03:03:57 [d2] candidates per level: {1: 472, 2: 5376, 3: 14712, 4: 28008, 5: 45264} peak RSS 0.2 GB
+   | 03:03:57 [d3] candidates per level: {1: 472, 2: 5376, 3: 14712, 4: 28008, 5: 45264} peak RSS 0.2 GB
+   | 03:03:57 [control] candidates per level: {1: 472, 2: 5376, 3: 14712, 4: 28008, 5: 45264} peak RSS 0.2 GB
+   | 03:04:29 [d2] vars 1511638, clauses 6166578, peak RSS 2.7 GB; DECIDE uncovered <= 2, |R| >= 1
+   | 03:04:33 [control] vars 1552820, clauses 11834091, peak RSS 4.1 GB; DECIDE uncovered <= 3, |R| >= 254
+   | 03:04:33 [d3] vars 1552820, clauses 11834091, peak RSS 4.1 GB; DECIDE uncovered <= 3, |R| >= 255
+[22:05:54] poll hiccup: HTTPError (1)
+[22:18:58] poll hiccup: ConnectionError (1)
+[01:54:03] stop_server: stopping
+[01:54:10] after: credits=464.0020 (delta +0.0000), plan_hours=311.158; wall 16873s
+python.exe : Traceback (most recent call last):
+At line:22 char:1
++ & "$env:USERPROFILE\qe-work\kc-venv\Scripts\python.exe" -u "$env:USER ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "C:\Users\nflach\qe-work\kc-venv\Lib\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\nflach\qe-work\kc-venv\Lib\site-packages\urllib3\connectionpool.py", line 540, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\nflach\qe-work\kc-venv\Lib\site-packages\urllib3\connection.py", line 638, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Python314\Lib\http\client.py", line 1450, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 336, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 297, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socket.py", line 725, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python314\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\nflach\qe-work\kc-venv\Lib\site-packages\requests\adapters.py", line 696, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "C:\Users\nflach\qe-work\kc-venv\Lib\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "C:\Users\nflach\qe-work\kc-venv\Lib\site-packages\urllib3\util\retry.py", line 510, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nflach\qe-work\kc-venv\Lib\site-packages\urllib3\util\util.py", line 38, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\nflach\qe-work\kc-venv\Lib\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "C:\Users\nflach\qe-work\kc-venv\Lib\site-packages\urllib3\connectionpool.py", line 540, in _make_request
+    response = conn.getresponse()
+  File "C:\Users\nflach\qe-work\kc-venv\Lib\site-packages\urllib3\connection.py", line 638, in getresponse
+    httplib_response = super().getresponse()
+  File "C:\Python314\Lib\http\client.py", line 1450, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 336, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\http\client.py", line 297, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\socket.py", line 725, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python314\Lib\ssl.py", line 1304, in recv_into
+    return self.read(nbytes, buffer)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\ssl.py", line 1138, in read
+    return self._sslobj.read(len, buffer)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+urllib3.exceptions.ProtocolError: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was 
+forcibly closed by the remote host', None, 10054, None))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\nflach\qe-work\qbraid_lab_job.py", line 174, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Users\nflach\qe-work\qbraid_lab_job.py", line 146, in main
+    (out / "job.log").write_text(lab.get_text(f"{jd}/job.log") or "", encoding="utf-8")
+                                 ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\nflach\qe-work\qbraid_lab_bench.py", line 120, in get_text
+    r = self.api("GET", f"api/contents/{path}", params={"type": "file", "format": "text"})
+  File "C:\Users\nflach\qe-work\qbraid_lab_bench.py", line 84, in api
+    r = self.s.request(method, self.base + path, timeout=kw.pop("timeout", 60), **kw)
+  File "C:\Users\nflach\qe-work\kc-venv\Lib\site-packages\requests\sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\nflach\qe-work\kc-venv\Lib\site-packages\requests\sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\nflach\qe-work\kc-venv\Lib\site-packages\requests\adapters.py", line 711, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was 
+forcibly closed by the remote host', None, 10054, None))

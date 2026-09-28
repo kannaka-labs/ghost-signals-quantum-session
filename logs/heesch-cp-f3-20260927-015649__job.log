@@ -1,0 +1,33 @@
+== host jupyter-POD nproc=16 mem=62G 2026-09-27T06:55:37Z
+---------------------------------------
+* [0;35mWelcome to the qBraid Lab Terminal![0m *
+---------------------------------------
+
+        ____            _     _  
+   __ _| __ ) _ __ __ _(_) __| | 
+  / _  |  _ \|  __/ _  | |/ _  | 
+ | (_| | |_) | | | (_| | | (_| | 
+  \__  |____/|_|  \__ _|_|\__ _| 
+     |_|                         
+
+
+Use `qbraid -h` to see available CLI commands.
+
+06:55:38 [d3] candidates per level: {3: 1367, 4: 10418, 5: 24642} peak RSS 0.1 GB
+06:55:38 [r339] candidates per level: {3: 1367, 4: 10418, 5: 24642} peak RSS 0.1 GB
+06:55:38 [control] candidates per level: {3: 1367, 4: 10418, 5: 24642} peak RSS 0.1 GB
+06:55:38 [d2] candidates per level: {3: 1367, 4: 10418, 5: 24642} peak RSS 0.1 GB
+06:55:45 [d2] vars 588365, clauses 2120731, peak RSS 0.6 GB; DECIDE uncovered <= 2, |R| >= 1
+06:55:46 [r339] vars 604731, clauses 4008242, peak RSS 1.1 GB; DECIDE uncovered <= 100000, |R| >= 339
+06:55:46 [control] vars 610541, clauses 4021794, peak RSS 1.1 GB; DECIDE uncovered <= 3, |R| >= 254
+06:55:46 [d3] vars 610541, clauses 4021794, peak RSS 1.1 GB; DECIDE uncovered <= 3, |R| >= 255
+06:56:10 [r339] 
+06:56:10 [r339] SAT after 61 cuts (24s). OFFICIAL: coronas=4, defect_hc=348 (hh=348, pockets=0) of 348 -> score 4.000000
+06:56:12 [d2] 
+06:56:12 [d2] UNSAT after 11 sound cuts (27s): with rings 0..2 fixed, no choice of rings 3..5 has OFFICIAL defect (uncovered + pocket cells) <= 2 over |R| >= 1.
+06:56:40 [control] 
+06:56:40 [control] SAT after 56 cuts (54s). OFFICIAL: coronas=4, defect_hc=3 (hh=3, pockets=0) of 254 -> score 4.988189
+06:56:40 [control] wrote /home/jovyan/qe_jobs/heesch-cp-f3/control_cp_f3.heesch
+06:56:40 [d3] 
+06:56:40 [d3] UNSAT after 43 sound cuts (54s): with rings 0..2 fixed, no choice of rings 3..5 has OFFICIAL defect (uncovered + pocket cells) <= 3 over |R| >= 255.
+== job exit rc=0 after 64s

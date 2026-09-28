@@ -1,0 +1,11 @@
+===== CONTROL f=2 3/254 (must be SAT)
+vars 1076224, clauses 11096986; DECIDE uncovered <= 3, |R| >= 254
+
+SAT after 43 cuts (170s). [control ok]
+wrote /home/jovyan/qe_jobs/heesch-multi/control_f2.heesch
+===== REAL f=2 3/255
+candidates per level: {2: 872, 3: 7820, 4: 19516, 5: 35164}
+vars 1076224, clauses 11096986; DECIDE uncovered <= 3, |R| >= 255
+
+UNSAT after 44 sound cuts (216s): with rings 0..1 fixed, no choice of rings 2..5 has uncovered <= 3 over |R| >= 255 without extra pockets.
+===== CONTROL f=1 3/254 (must be SAT)
