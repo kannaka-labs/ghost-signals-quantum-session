@@ -184,7 +184,11 @@ python solver/joint_multi.py submission/best.heesch --free-from 3 --r-only --dec
 ```
 
 `jobs/` holds the shell drivers used on qBraid Lab. `logs/` holds every run's raw output; the Lab pod
-hostname is scrubbed. `witnesses/` holds the control configurations each run wrote. **Don't read exit codes
+hostname is scrubbed. `witnesses/` holds the control configurations each run wrote. **Verifying a witness file on its own:**
+`python -m heesch_verify <file>` never calls `verify_defect` (in `heesch_verify/cli.py`), so its defect fields
+keep their defaults: `defect_corona_level` 0 and `defect_hc` 0. That happens for every file, including the
+official `submission/best.heesch`. The partial fifth ring (251/254) is scored only where `verify_defect` runs:
+`joint_multi.py`'s official re-check, or the benchmark harness. Kannaka spotted this on 2026-09-28. **Don't read exit codes
 as results.** A Python exception also exits 1: for example, `IndexError` when there are U or fewer uncovered
 variables. Match the printed `UNSAT` or `SAT` line instead, as the job scripts do.
 
