@@ -18,15 +18,28 @@ no configuration beats 4.9882. Pockets are counted into the defect exactly, not 
 | rings 0–3 (f=4) | UNSAT | UNSAT | < 339 | n/a | impossible | SAT, official 4.988189 |
 | rings 0–2 (f=3) | UNSAT (27 s) | UNSAT (54 s) | 359 | UNSAT (74 s) | needs R ≥ 424 > 359 | SAT, official 4.988189 |
 | rings 0–1 (f=2) | UNSAT (133 s) | UNSAT (305 s) | 358 | UNSAT (231 s) | needs R ≥ 424 > 358 | SAT, official 4.988189 |
-| ring 0 only (f=1) | running | running | running | running | | running |
+| ring 0 only (f=1) | open: pocket-counting run in progress on an independent machine | pockets forbidden: UNSAT, **certified** (see Certificates); pockets counted: in progress | open | open | open | pockets counted: in progress |
+
+Notes on the rows:
+- **The f=4 row comes from the older pocket-forbidding runs.** It holds because every f=4 configuration is also an
+  f=3 configuration, and the f=3 row counts pockets.
+- **The f=2 row: only the D≤2 pocket-counting log is in `logs/`.** The control and D≤3 were reproduced
+  independently (see Certificates). D=4, D≤2 and R-max 358 have not yet been checked independently.
+- **The f=1 pocket-counting run on the Lab died twice.** Both times the Lab server restarted about two minutes after
+  launch, and neither run produced a result. It is now running on an independent pipeline that exports a
+  certificate for each stage.
 
 A defect D beats the leader only if D/R < 3/254, i.e. R > 254·D/3. So once no ring can reach R ≥ 339,
 every D ≥ 4 is impossible. Each row's control asks the same encoder for the leader's own score and must
 come back SAT with the **official** verifier's number; if it didn't, the UNSAT rows would mean nothing.
 
 The earlier, pocket-FORBIDDING runs (`--decide U/RMIN` without `--count-pockets`) proved the same at
-f = 1, 2, 3, 4 except for one case: 2 uncovered plus exactly one extra pocket. Pocket counting closes it.
-The f=1 pocket-counting run timed out once at 3h50m (logs included) and is being retried with 12 h.
+f = 1, 2, 3, 4, but only for configurations without extra pockets. They leave open **any total defect ≤ 3 that
+includes at least one pocket cell**. (An earlier version of this README understated that as "2 uncovered plus
+exactly one pocket".) Pocket counting closes the gap: at f=2 and f=3 it is closed, and at f=1 it is still open.
+The f=1 pocket-counting attempts on the Lab were:
+- one timeout at 3h50m (logs included);
+- two deaths when the Lab server restarted about two minutes after launch, both with no output.
 
 ## The encoding (`solver/joint_multi.py`)
 
@@ -115,11 +128,36 @@ neighbours of P₀ outside P₀.
 What this does NOT cover: bugs in the implementation of these clauses. The DRAT route and independent
 re-checking are how to catch those.
 
-## No DRAT proofs yet
+## Certificates (independent, by Kannaka's agents)
 
-These are incremental CaDiCaL runs with lazily added cuts and assumptions, so no single certificate
-exists. A certificate would need the final CNF plus all cuts written out, then a proof-logging run
-checked with `drat-trim`. That's the most useful next step for an independent check.
+The runs here are incremental CaDiCaL solves with lazily added cuts and assumptions, so the solver emits no proof.
+Kannaka's export hook (branch `heesch-export-hook`) records every clause the solver receives: the encoding, every
+lazy cut, the totalizer extensions, and the final assumptions as unit clauses. That makes a single CNF, which a
+proof-logging solver then refutes, and a verified checker then checks the proof.
+
+| instance | checked by |
+|---|---|
+| f=4, plain, D≤3 R≥255 | cake_lpr, drat-trim, lrat-check |
+| f=3, pocket-counting, D≤3 R≥255 | cake_lpr, drat-trim |
+| f=3, pocket-counting, D≤2 | cake_lpr |
+| f=2, plain, D≤3 R≥255 | cake_lpr, drat-trim |
+| **f=1, plain, D≤3 R≥255** | **cake_lpr: `s VERIFIED UNSAT`** |
+
+The f=1 plain certificate:
+- CNF sha256 `a9cca36a94bab07574562044d69d95b5c804479cf85c458581790d35dad92af8`: 1,582,268 variables and
+  17,473,165 clauses, which is this encoder's 17,473,115 plus the same 50 cuts the Lab run added.
+- Proof: CaDiCaL 3.0.1 LRAT, 28.4 GB, sha256
+  `c4d4c0a0a7737d0b971fee364c8fedf4eb6e93b0bcc4f2c52cd8bc1f8d06bf2f`. It was streamed from xz into the checker.
+- The check took 2 h 16 min with a peak of 50.1 GB. A 16 GB heap was not enough, so an f=1 certificate needs about
+  55 GB.
+
+Controls on the certificates: the proof is rejected against the SAT control's CNF, rejected with the lazy cuts
+removed (that CNF is SAT), and rejected when truncated. An `--oracle` mode re-finds 4.988189 with stock CaDiCaL
+and kissat.
+
+**Scope:** a certificate proves that the exported CNF is unsatisfiable. That this CNF means "no configuration beats
+the leader" rests on the encoding and on the premises argued above. Kannaka's other agent reached the same
+argument independently.
 
 ## Sizes (variables / clauses as encoded)
 
@@ -146,8 +184,9 @@ python solver/joint_multi.py submission/best.heesch --free-from 3 --r-only --dec
 ```
 
 `jobs/` holds the shell drivers used on qBraid Lab. `logs/` holds every run's raw output; the Lab pod
-hostname is scrubbed. `witnesses/` holds the control configurations each run wrote. Exit code 1 from
-`joint_multi.py` means UNSAT, not a crash.
+hostname is scrubbed. `witnesses/` holds the control configurations each run wrote. **Don't read exit codes
+as results.** A Python exception also exits 1: for example, `IndexError` when there are U or fewer uncovered
+variables. Match the printed `UNSAT` or `SAT` line instead, as the job scripts do.
 
 ## Also here
 
